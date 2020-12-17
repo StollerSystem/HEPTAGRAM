@@ -37,25 +37,30 @@ class Synth extends Component {
     Tone.Transport.toggle()
   }
 
-  handleDelayLevel = () => {
-
+  handleBPMChange = (bpm) => {
+    this.setState( {BPM: bpm})
   }
 
   componentDidMount() {
 
-    const delay = this.delay; 
-    const filter = this.filter
-    delay.wet.value = 0;
-
+    
     var delaySlide = document.getElementById('delayLevel');
-    delaySlide.addEventListener("input", function() {  
-      console.log(this.value)
+    const delay = this.delay; 
+    delay.wet.value = 0;
+    delaySlide.addEventListener("input", function() {        
       delay.wet.value = this.value/100;     
     });  
-
+    
+    const filter = this.filter
     var filterSlide = document.getElementById('filterCutoff');
     filterSlide.addEventListener("input", function() {     
       filter.frequency.value = this.value*100;     
+    });
+    
+    var bpmSlide = document.getElementById('bpmCount');
+    const handleBPMchange = this.handleBPMChange
+    bpmSlide.addEventListener("input", function() {     
+      handleBPMchange(this.value);    
     });
 
   }

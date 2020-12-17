@@ -8,7 +8,7 @@ body {
   -webkit-appearance: none;
   width: 25%;
   height: 25px;
-  background: #3f3f3f;
+  background: #1f1f1f;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -24,6 +24,7 @@ body {
   appearance: none;
   width: 25px;
   height: 25px;
+  box-shadow: 0px 0px 4px 4px green;
   background: #00ff08;
   cursor: pointer;
 }

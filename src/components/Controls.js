@@ -9,6 +9,7 @@ function Controls(props) {
       <button onClick={props.stop}>stop</button>
       <p>DLY LVL<input type="range" min="0" max="100" defaultValue="0" className="slider" id="delayLevel"/></p> 
       <p>FILTER<input type="range" min="0" max="100" defaultValue="75" className="slider" id="filterCutoff"/></p>
+      <p>BPM<input type="range" min="0" max="200" defaultValue="90" className="slider" id="bpmCount"/></p>
     </React.Fragment>
   )
 }
