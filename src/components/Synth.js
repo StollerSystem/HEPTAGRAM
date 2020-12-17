@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import * as Tone from 'tone';
+import Controls from './Controls'
 
 
 class Synth extends Component {
   state = {
-    steps: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3'],
+    steps: ["D3","F3","A3","C4","D4","E4","G4","A4"],
     BPM: 90
   }
 
@@ -62,11 +63,11 @@ class Synth extends Component {
   render() {
     return(
       <React.Fragment>
-        <p>synth test</p>
-        <button onClick={this.handleSequenceStart}>start</button>
-        <button onClick={this.handleSequenceStop}>stop</button>
-        <p>DLY LVL<input type="range" min="0" max="100" defaultValue="0" className="slider" id="delayLevel"/></p> 
-        <p>FILTER<input type="range" min="0" max="100" defaultValue="75" className="slider" id="filterCutoff"/></p>
+        <p>synth test</p>        
+        <Controls
+        start={this.handleSequenceStart}
+        stop={this.handleSequenceStop}
+        />        
       </React.Fragment>
     )
   }
