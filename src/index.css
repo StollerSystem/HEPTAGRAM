@@ -24,9 +24,13 @@ body {
   appearance: none;
   width: 25px;
   height: 25px;
-  box-shadow: 0px 0px 4px 4px green;
+  box-shadow: 0px 0px 1px 1px#009b05;
   background: #00ff08;
   cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  box-shadow: 0px 0px 8px 8px green;
 }
 
 .slider::-moz-range-thumb {
@@ -34,5 +38,9 @@ body {
   height: 25px;
   background: #4CAF50;
   cursor: pointer;
+}
+
+.side:hover {
+  fill: #75a986;
 }
 
