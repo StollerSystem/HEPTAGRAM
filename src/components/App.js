@@ -6,7 +6,9 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Synth/>
+        <div className="main">
+          <Synth/>
+        </div>
       </React.Fragment>
     );
   };
