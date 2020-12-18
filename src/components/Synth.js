@@ -40,8 +40,8 @@ class Synth extends Component {
   volume1 = new Tone.Volume(-17);
   delay = new Tone.FeedbackDelay(.5, .5);
   filter1 = new Tone.Filter(7500, 'lowpass', -24);
-  synth = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
-
+  synth1 = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
+  
 
   volume2 = new Tone.Volume(-17);
   filter2 = new Tone.Filter(7500, 'lowpass', -24);
@@ -61,7 +61,6 @@ class Synth extends Component {
   }
 
   handleEditStep = (id) => {
-
     if (!this.state.editStep || this.state.editStep !== id) {
       this.setState({ editStep: id })
     } else {
@@ -93,7 +92,7 @@ class Synth extends Component {
 
     if (this.state.steps[`b${stepCount + 1}`].active) {      
       const note = this.state.steps[`b${stepCount + 1}`].note-1;
-      this.synth.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
+      this.synth1.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
     }
 
     if (this.state.steps[`s${stepCount + 1}`].active) {      
@@ -114,6 +113,9 @@ class Synth extends Component {
 
   componentDidMount() {
 
+    this.synth1.oscillator.type = "square";  
+    this.synth2.oscillator.type = "sawtooth";  
+
     this.transport.bpm.value = 90
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
@@ -129,9 +131,15 @@ class Synth extends Component {
     });
 
     const filter1 = this.filter1;
-    var filterSlide = document.getElementById('filterCutoff');
+    var filterSlide = document.getElementById('filterCutoff1');
     filterSlide.addEventListener("input", function () {
       filter1.frequency.value = this.value * 100;
+    });
+
+    const filter2 = this.filter2;
+    var filterSlide2 = document.getElementById('filterCutoff2');
+    filterSlide2.addEventListener("input", function () {
+      filter2.frequency.value = this.value * 100;
     });
 
     var bpmSlide = document.getElementById('bpmCount');
@@ -140,7 +148,7 @@ class Synth extends Component {
     });
 
     const vol1 = this.volume1;
-    var volumeSlide = document.getElementById('volume');
+    var volumeSlide = document.getElementById('volume1');
     volumeSlide.addEventListener("input", function() {     
       vol1.volume.value = this.value-35;     
     });

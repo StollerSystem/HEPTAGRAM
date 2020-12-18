@@ -60,5 +60,18 @@ body {
   border-width: 1px;
   padding: 5px;
   box-shadow: 0px 0px 2px 2px #009f94;
+}
 
+.controlBox {
+  padding: 10px;
+  border: solid rgb(45, 45, 45);
+  border-width: 1px;
+  
+}
+
+.synthControls {
+  padding: 10px;
+  border: solid rgb(45, 45, 45);
+  border-width: 1px;
+  margin: 5px
 }
