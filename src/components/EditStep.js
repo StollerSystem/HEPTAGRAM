@@ -14,9 +14,9 @@ function EditStep(props) {
 
   return (
     <React.Fragment>
-      <p>EDIT STEP</p>
+      {/* <p>EDIT STEP</p> */}
+      <p>NOTE<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
       <button onClick={() => props.toggleStep(id)}>ACTIVATE</button>
-      <p>BPM<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
     </React.Fragment>    
   )
 }

@@ -76,8 +76,7 @@ class Synth extends Component {
   repeat = (time) => {
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
-    if (this.state.steps[`b${stepCount + 1}`].active) {
-      console.log("hit")
+    if (this.state.steps[`b${stepCount + 1}`].active) {      
       const note = this.state.steps[`b${stepCount + 1}`].note;
       this.synth.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
     }
@@ -85,7 +84,7 @@ class Synth extends Component {
 
     this.draw.schedule(function () {
       BorderLight(stepCount + 1);
-      starLight(stepCount + 1);
+      // starLight(stepCount + 1);
     }, time)
 
   }
@@ -121,16 +120,13 @@ class Synth extends Component {
 
   NoteListener = (e) => {
     if (e.target.id === "noteSlider") {
-
-      if (e.target.value) {
-        console.log("test!" + e.target.value)
+      if (e.target.value) {        
         let steps = this.state.steps;
         steps[this.state.editStep].note = e.target.value
-        this.setState({ steps: steps })
-        console.log(this.state.steps)
-      }
-    }
-  }
+        this.setState({ steps: steps })        
+      };
+    };
+  };
 
   render() {
 
