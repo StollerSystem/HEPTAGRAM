@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as Tone from 'tone';
 import Controls from './Controls';
 import Heptagram from './Heptagram';
+import EditStep from './EditStep'
 import { BorderLight, starLight } from './Visuals';
 
 
@@ -12,14 +13,15 @@ class Synth extends Component {
       mood1: ["D3", "F3", "A3", "C4", "D4", "E4", "G4"]
     },
     steps: {
-      b1: {active: false, note: 1},
-      b2: {active: false, note: 2},
-      b3: {active: false, note: 3},
-      b4: {active: false, note: 4},
-      b5: {active: false, note: 5},
-      b6: {active: false, note: 6},
-      b7: {active: false, note: 7}
-    }
+      b1: { active: false, note: 1 },
+      b2: { active: false, note: 2 },
+      b3: { active: false, note: 3 },
+      b4: { active: false, note: 4 },
+      b5: { active: false, note: 5 },
+      b6: { active: false, note: 6 },
+      b7: { active: false, note: 7 }
+    },
+    stepEdit: null
   };
 
   transport = Tone.Transport;
@@ -40,11 +42,23 @@ class Synth extends Component {
   //   "upDown"   
   // )
   handleToggleStep = (id) => {
-    console.log("toggle"+id)
     let steps = this.state.steps;
     steps[id].active = !steps[id].active;
-    this.setState({steps: steps})
-    console.log(this.state.steps)
+    this.setState({ steps: steps })
+  }
+
+  handleEditStep = (id) => {
+    if (!this.state.editStep) {
+      this.setState({ editStep: id })
+    } else {
+      this.setState({ editStep: null })
+    }
+  }
+
+  handleChangeNote = (step, note) => {
+    let steps = this.state.steps;
+    steps[step].note = note;
+    this.setState({ steps: steps })
   }
 
 
@@ -60,12 +74,11 @@ class Synth extends Component {
   }
 
   repeat = (time) => {
-    // console.log(time)
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
-    if (this.state.steps[`b${stepCount+1}`].active) {
+    if (this.state.steps[`b${stepCount + 1}`].active) {
       console.log("hit")
-      const note = this.state.steps[`b${stepCount+1}`].note;
+      const note = this.state.steps[`b${stepCount + 1}`].note;
       this.synth.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
     }
     this.index++
@@ -102,19 +115,48 @@ class Synth extends Component {
       Tone.Transport.bpm.value = this.value
     });
 
+    document.addEventListener("input", this.NoteListener);
+
+  }
+
+  NoteListener = (e) => {
+    if (e.target.id === "noteSlider") {
+
+      if (e.target.value) {
+        console.log("test!" + e.target.value)
+        let steps = this.state.steps;
+        steps[this.state.editStep].note = e.target.value
+        this.setState({ steps: steps })
+        console.log(this.state.steps)
+      }
+    }
   }
 
   render() {
+
+    let editStep = null
+    if (this.state.editStep) {
+      editStep = <EditStep
+        stepId={this.state.editStep}
+        toggleStep={this.handleToggleStep}
+        changeNote={this.handleChangeNote}
+        attachListener={this.attachNoteListener}
+      />
+
+    }
+
     return (
       <React.Fragment>
-        <p>synth test</p>
         <Controls
           start={this.handleSequenceStart}
-          stop={this.handleSequenceStop}          
+          stop={this.handleSequenceStop}
         />
-        <Heptagram 
-        toggleStep={this.handleToggleStep}
-        stepsActive={this.state.steps}
+        {editStep}
+        <Heptagram
+          // toggleStep={this.handleToggleStep}
+          stepsActive={this.state.steps}
+          stepEditing={this.state.editStep}
+          editStep={this.handleEditStep}
         />
       </React.Fragment>
     )

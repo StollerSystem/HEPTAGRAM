@@ -5,6 +5,8 @@ function Heptagram(props) {
   let bg1 = null
   if (props.stepsActive["b1"].active) {
     bg1 = "#00d547"
+  } else if (props.stepEditing === "b1") {
+    bg1 = "#009f94"
   }
 
   const sg1 = null
@@ -69,7 +71,7 @@ function Heptagram(props) {
             <path
               d="M 202.39591,14.948985 53.422061,86.690859 60.856749,93.009337 202.39591,25.049661 Z"
               id="gb1"
-              fill={null} />
+              fill={bg1} />
             <path
               d="m 204.07074,15.034768 v 9.978203 l 141.54899,67.963809 7.43881,-6.192904 z"
               id="gb2"
@@ -177,7 +179,7 @@ function Heptagram(props) {
             className="side"
             fill={bg1}
             on = "off"
-            onClick={() => props.toggleStep("b1")}
+            onClick={() => props.editStep("b1")}
             d="M 769.74721,60.497033 201.9395,332.8922 230.03911,356.77306 769.74721,98.672815 Z"
             transform="scale(0.26458333)"
             id="b1" />
