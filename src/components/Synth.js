@@ -19,20 +19,32 @@ class Synth extends Component {
       b4: { active: false, note: 4 },
       b5: { active: false, note: 5 },
       b6: { active: false, note: 6 },
-      b7: { active: false, note: 7 }
+      b7: { active: false, note: 7 },
+      s1: { active: false, note: 1 },
+      s2: { active: false, note: 2 },
+      s3: { active: false, note: 3 },
+      s4: { active: false, note: 4 },
+      s5: { active: false, note: 5 },
+      s6: { active: false, note: 6 },
+      s7: { active: false, note: 7 }
     },
     stepEdit: null
   };
 
   transport = Tone.Transport;
-  volume = new Tone.Volume(-17);
-  delay = new Tone.FeedbackDelay(.5, .5);
-  filter = new Tone.Filter(7500, 'lowpass', -24);
-  synth = new Tone.Synth().chain(this.volume, this.delay, this.filter, Tone.Destination);
   index = 0;
   draw = Tone.Draw
 
 
+  volume1 = new Tone.Volume(-17);
+  delay = new Tone.FeedbackDelay(.5, .5);
+  filter1 = new Tone.Filter(7500, 'lowpass', -24);
+  synth = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
+
+
+  volume2 = new Tone.Volume(-17);
+  filter2 = new Tone.Filter(7500, 'lowpass', -24);
+  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, Tone.Destination);
   // notes = this.state.steps
   // sequence = new Tone.Pattern(
   //   (time, note) => {
@@ -77,12 +89,20 @@ class Synth extends Component {
   repeat = (time) => {
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
+
     if (this.state.steps[`b${stepCount + 1}`].active) {      
       const note = this.state.steps[`b${stepCount + 1}`].note-1;
       this.synth.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
     }
-    this.index++
 
+    if (this.state.steps[`s${stepCount + 1}`].active) {      
+      const note = this.state.steps[`s${stepCount + 1}`].note-1;
+      this.synth2.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
+    }
+
+
+
+    this.index++
     this.draw.schedule(function () {
       BorderLight(stepCount + 1);
       starLight(stepCount + 1);
@@ -106,10 +126,10 @@ class Synth extends Component {
       delay.wet.value = this.value / 100;
     });
 
-    const filter = this.filter;
+    const filter1 = this.filter1;
     var filterSlide = document.getElementById('filterCutoff');
     filterSlide.addEventListener("input", function () {
-      filter.frequency.value = this.value * 100;
+      filter1.frequency.value = this.value * 100;
     });
 
     var bpmSlide = document.getElementById('bpmCount');
@@ -117,10 +137,10 @@ class Synth extends Component {
       Tone.Transport.bpm.value = this.value;
     });
 
-    const vol = this.volume;
+    const vol1 = this.volume1;
     var volumeSlide = document.getElementById('volume');
     volumeSlide.addEventListener("input", function() {     
-      vol.volume.value = this.value-35;     
+      vol1.volume.value = this.value-35;     
     });
 
 
