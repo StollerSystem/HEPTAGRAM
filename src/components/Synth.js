@@ -25,7 +25,7 @@ class Synth extends Component {
   };
 
   transport = Tone.Transport;
-  volume = new Tone.Volume(-20);
+  volume = new Tone.Volume(-17);
   delay = new Tone.FeedbackDelay(.5, .5);
   filter = new Tone.Filter(7500, 'lowpass', -24);
   synth = new Tone.Synth().chain(this.volume, this.delay, this.filter, Tone.Destination);
@@ -97,6 +97,8 @@ class Synth extends Component {
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
 
+    document.addEventListener("input", this.NoteListener);
+
     var delaySlide = document.getElementById('delayLevel');
     const delay = this.delay;
     delay.wet.value = 0;
@@ -104,7 +106,7 @@ class Synth extends Component {
       delay.wet.value = this.value / 100;
     });
 
-    const filter = this.filter
+    const filter = this.filter;
     var filterSlide = document.getElementById('filterCutoff');
     filterSlide.addEventListener("input", function () {
       filter.frequency.value = this.value * 100;
@@ -112,10 +114,15 @@ class Synth extends Component {
 
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
-      Tone.Transport.bpm.value = this.value
+      Tone.Transport.bpm.value = this.value;
     });
 
-    document.addEventListener("input", this.NoteListener);
+    const vol = this.volume;
+    var volumeSlide = document.getElementById('volume');
+    volumeSlide.addEventListener("input", function() {     
+      vol.volume.value = this.value-35;     
+    });
+
 
   }
 
