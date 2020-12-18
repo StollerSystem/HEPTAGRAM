@@ -48,7 +48,8 @@ class Synth extends Component {
   }
 
   handleEditStep = (id) => {
-    if (!this.state.editStep) {
+
+    if (!this.state.editStep || this.state.editStep !== id) {
       this.setState({ editStep: id })
     } else {
       this.setState({ editStep: null })
@@ -143,17 +144,25 @@ class Synth extends Component {
 
     return (
       <React.Fragment>
-        <Controls
-          start={this.handleSequenceStart}
-          stop={this.handleSequenceStop}
-        />
-        {editStep}
-        <Heptagram
-          // toggleStep={this.handleToggleStep}
-          stepsActive={this.state.steps}
-          stepEditing={this.state.editStep}
-          editStep={this.handleEditStep}
-        />
+        <div className="grid-container">
+          <div className="item1">
+            <Controls
+              start={this.handleSequenceStart}
+              stop={this.handleSequenceStop}
+            />
+            {editStep}
+          </div>
+          <div className="item2">
+            <Heptagram
+              // toggleStep={this.handleToggleStep}
+              stepsActive={this.state.steps}
+              stepEditing={this.state.editStep}
+              editStep={this.handleEditStep}
+              />
+          </div>
+          <div className="item3">
+          </div>
+        </div>
       </React.Fragment>
     )
   }

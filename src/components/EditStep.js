@@ -13,11 +13,11 @@ function EditStep(props) {
 
 
   return (
-    <React.Fragment>
+    <div className="editBox">
       {/* <p>EDIT STEP</p> */}
       <p>NOTE<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
-      <button onClick={() => props.toggleStep(id)}>ACTIVATE</button>
-    </React.Fragment>    
+      <button onClick={() => props.toggleStep(id)}>ACTIVATE!</button>
+    </div>      
   )
 }
 
