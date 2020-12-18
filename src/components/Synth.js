@@ -78,7 +78,7 @@ class Synth extends Component {
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
     if (this.state.steps[`b${stepCount + 1}`].active) {      
-      const note = this.state.steps[`b${stepCount + 1}`].note;
+      const note = this.state.steps[`b${stepCount + 1}`].note-1;
       this.synth.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
     }
     this.index++
@@ -127,7 +127,7 @@ class Synth extends Component {
   }
 
   NoteListener = (e) => {
-    if (e.target.id === "noteSlider") {
+    if (e.target.id === "noteSlider") {      
       if (e.target.value) {        
         let steps = this.state.steps;
         steps[this.state.editStep].note = e.target.value
@@ -145,6 +145,8 @@ class Synth extends Component {
         toggleStep={this.handleToggleStep}
         changeNote={this.handleChangeNote}
         attachListener={this.attachNoteListener}
+        editStep={this.handleEditStep}
+        currentStep={this.state.steps[this.state.editStep]}
       />
 
     }
