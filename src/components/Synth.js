@@ -20,6 +20,7 @@ class Synth extends Component {
       b5: { active: false, note: 5 },
       b6: { active: false, note: 6 },
       b7: { active: false, note: 7 },
+
       s1: { active: false, note: 1 },
       s2: { active: false, note: 2 },
       s3: { active: false, note: 3 },
@@ -118,6 +119,7 @@ class Synth extends Component {
     this.draw.anticipation = 1;
 
     document.addEventListener("input", this.NoteListener);
+    window.addEventListener('keypress', this.onKeyPress)
 
     var delaySlide = document.getElementById('delayLevel');
     const delay = this.delay;
@@ -155,9 +157,16 @@ class Synth extends Component {
       };
     };
   };
+ 
+  onKeyPress = (event) => {    
+    if (this.state.editStep && event.key === " ") {
+      this.handleToggleStep(this.state.editStep)
+    }
+  }  
 
-  render() {
-
+ 
+  render() { 
+ 
     let editStep = null
     if (this.state.editStep) {
       editStep = <EditStep

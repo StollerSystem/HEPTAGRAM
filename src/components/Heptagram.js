@@ -24,10 +24,6 @@ function Heptagram(props) {
     }
   }
 
-  
-
-
-
   return (
     <React.Fragment>
       <svg
@@ -37,7 +33,7 @@ function Heptagram(props) {
         height="250mm"
         viewBox="10 0 400 400"
         id="svg2386">
-        <filter
+        {/* <filter
           id="filter3606"
           x="-0.056229551"
           width="1.1124591"
@@ -46,7 +42,7 @@ function Heptagram(props) {
           <feGaussianBlur
             stdDeviation="8.3546036"
             id="feGaussianBlur3608" />
-        </filter>
+        </filter> */}
         <filter
           id="glowFilter1"
           x="-0.03546119"
@@ -180,6 +176,7 @@ function Heptagram(props) {
             className="side"
             fill={b[0]}
             onClick={() => props.editStep("b1")}
+            onKeyPress={() => console.log("test")}            
             d="M 769.74721,60.497033 201.9395,332.8922 230.03911,356.77306 769.74721,98.672815 Z"
             transform="scale(0.26458333)"
             id="b1" />

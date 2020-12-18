@@ -15,8 +15,9 @@ function EditStep(props) {
       <p>NOTE<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
       <button onClick={() => props.toggleStep(id)}>{buttonText}</button>
       <button onClick={() => props.editStep(id)}>CLOSE</button>
+      {/* <div onKeyPress={() => props.toggleStep(id)}></div> */}
     </div>      
-  )
+  )  
 }
 
 export default EditStep;
