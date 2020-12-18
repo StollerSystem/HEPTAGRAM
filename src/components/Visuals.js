@@ -1,5 +1,3 @@
-// import React from 'react';
-
 
 export function BorderLight(id) {  
   const borderGlow = document.getElementById(`gb${id}`);
@@ -11,10 +9,10 @@ export function BorderLight(id) {
 }
 
 export function starLight(id) {  
-  const starGlow = document.getElementById(`gs${id}`);
+  const starGlow = document.getElementById(`gs${id}`);  
   const originalColor = starGlow.getAttribute("fill");
-  starGlow.setAttribute("fill", "white");
+  starGlow.setAttribute("fill", "white");  
   setTimeout(function() {    
-    starGlow.setAttribute("fill", originalColor)
+    starGlow.setAttribute("fill", originalColor)   
   }, 200);
 }

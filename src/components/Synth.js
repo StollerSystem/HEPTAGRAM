@@ -85,7 +85,7 @@ class Synth extends Component {
 
     this.draw.schedule(function () {
       BorderLight(stepCount + 1);
-      // starLight(stepCount + 1);
+      starLight(stepCount + 1);
     }, time)
 
   }
