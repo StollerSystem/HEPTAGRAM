@@ -2,54 +2,18 @@ import React from 'react';
 
 function Heptagram(props) {
 
-  let bg1 = null
-  if (props.stepsActive["b1"].active) {
-    bg1 = "#00d547"
-  } else if (props.stepEditing === "b1") {
-    bg1 = "#009f94"
-  }
+  let b = [null,null,null,null,null,null,null]
+  let bg = [null,null,null,null,null,null,null]
 
-  let bg2 = null
-  if (props.stepsActive["b2"].active) {
-    bg2 = "#00d547"
-  } else if (props.stepEditing === "b2") {
-    bg2 = "#009f94"
-  }
-
-  let bg3 = null
-  if (props.stepsActive["b3"].active) {
-    bg3 = "#00d547"
-  } else if (props.stepEditing === "b3") {
-    bg3 = "#009f94"
-  }
-
-  let bg4 = null
-  if (props.stepsActive["b4"].active) {
-    bg4 = "#00d547"
-  } else if (props.stepEditing === "b4") {
-    bg4 = "#009f94"
-  }
-
-  let bg5 = null
-  if (props.stepsActive["b5"].active) {
-    bg5 = "#00d547"
-  } else if (props.stepEditing === "b5") {
-    bg5 = "#009f94"
-  }
-
-  let bg6 = null
-  if (props.stepsActive["b6"].active) {
-    bg6 = "#00d547"
-  } else if (props.stepEditing === "b6") {
-    bg6 = "#009f94"
-  }
-
-  let bg7 = null
-  if (props.stepsActive["b7"].active) {
-    bg7 = "#00d547"
-  } else if (props.stepEditing === "b7") {
-    bg7 = "#009f94"
-  }
+  for (let i = 0; i < b.length; i++) {    
+    if (props.stepsActive[`b${i+1}`].active) {
+      b[i] = "#00d547";
+      bg[i] = "#00d547";
+    }
+    if (props.stepEditing === `b${i+1}`) {
+      bg[i] = "#009f94"
+    }
+  }  
 
   const sg1 = null
   const sg2 = null
@@ -58,22 +22,7 @@ function Heptagram(props) {
   const sg5 = null
   const sg6 = null
   const sg7 = null
-
-
-
-  // function handleBorderClick(id) {    
-  //   let border = document.getElementById(id)
-  //   let glow = document.getElementById(`g${id}`)    
-  //   if (border.getAttribute("on") === "off") {
-  //     border.setAttribute("fill", "#00d547")
-  //     glow.setAttribute("fill", "#00d547")
-  //     border.setAttribute("on", "on")
-  //   } else {
-  //     border.setAttribute("fill", null)
-  //     glow.setAttribute("fill", null)
-  //     border.setAttribute("on", "off")
-  //   }  
-  // }
+  
 
 
   return (
@@ -96,7 +45,7 @@ function Heptagram(props) {
             id="feGaussianBlur3608" />
         </filter>
         <filter
-          id="filter3661"
+          id="glowFilter1"
           x="-0.03546119"
           width="1.0709224"
           y="-0.036445783"
@@ -106,38 +55,38 @@ function Heptagram(props) {
             id="feGaussianBlur3663" />
         </filter>
         <g
-          style={{ filter: "url(#filter3661)" }}
+          style={{ filter: "url(#glowFilter1)" }}
           id="glow"
           fill="black">
           <g id="borderGlow">
             <path
               d="M 202.39591,14.948985 53.422061,86.690859 60.856749,93.009337 202.39591,25.049661 Z"
               id="gb1"
-              fill={bg1} />
+              fill={bg[0]} />
             <path
               d="m 204.07074,15.034768 v 9.978203 l 141.54899,67.963809 7.43881,-6.192904 z"
               id="gb2"
-              fill={bg2} />
+              fill={bg[1]} />
             <path
               d="m 354.14942,88.054598 -7.50237,6.245613 34.95651,152.699719 9.36636,2.37557 z"
               id="gb3"
-              fill={bg3} />
+              fill={bg[2]} />
             <path
               d="m 381.15761,248.61482 -97.9656,122.48089 4.31342,9.35242 103.2025,-129.41124 z"
               id="gb4"
-              fill={bg4} />
+              fill={bg[3]} />
             <path
               d="m 124.89211,371.68484 -4.5129,9.59889 h 165.66741 l -4.42714,-9.59889 z"
               id="gb5"
-              fill={bg5} />
+              fill={bg[4]} />
             <path
               d="m 25.262022,248.45876 -9.585462,2.69957 103.19318,129.40039 4.46123,-9.48936 z"
               id="gb6"
-              fill={bg6} />
+              fill={bg[5]} />
             <path
               d="M 52.186994,87.839108 15.282786,249.52949 24.987103,246.79633 59.879548,94.376691 Z"
               id="gb7"
-              fill={bg7} />
+              fill={bg[6]} />
           </g>
           <g id="starGlow">
             <path
@@ -219,8 +168,7 @@ function Heptagram(props) {
 
           <path
             className="side"
-            fill={bg1}
-            on = "off"
+            fill={b[0]}            
             onClick={() => props.editStep("b1")}
             d="M 769.74721,60.497033 201.9395,332.8922 230.03911,356.77306 769.74721,98.672815 Z"
             transform="scale(0.26458333)"
@@ -228,48 +176,42 @@ function Heptagram(props) {
 
           <path
             className="side"
-            fill={bg2}
-            on = "off"
+            fill={b[1]}            
             onClick={() => props.editStep("b2")}
             d="m 772.26951,60.843517 v 37.712894 l 537.89219,257.854059 28.1152,-23.40625 z"
             transform="scale(0.26458333)"
             id="b2" />
           <path
             className="side"
-            fill={bg3}
-            on = "off"
+            fill={b[2]}            
             onClick={() => props.editStep("b3")}
             d="m 1340.574,335.54803 -28.3554,23.60547 132.9822,580.55263 33.9574,7.24685 z"
             transform="scale(0.26458333)"
             id="b3" />
           <path
             className="side"
-            fill={bg4}
-            on = "off"
+            fill={b[3]}            
             onClick={() => props.editStep("b4")}
             d="m 1442.3012,943.46348 -368.8826,463.00052 16.3027,35.3477 389.2528,-490.05975 z"
             transform="scale(0.26458333)"
             id="b4" />
           <path
             className="side"
-            fill={bg5}
-            on = "off"
+            fill={b[4]}            
             onClick={() => props.editStep("b5")}
             d="m 473.06234,1408.8985 -17.05665,36.2793 631.05941,-0.034 -16.7325,-36.2793 z"
             transform="scale(0.26458333)"
             id="b5" />
           <path
             className="side"
-            fill={bg6}
-            on = "off"
+            fill={b[5]}            
             onClick={() => props.editStep("b6")}
             d="m 97.552563,942.10648 -36.228516,10.20312 391.448973,491.0808 16.86133,-35.8653 z"
             transform="scale(0.26458333)"
             id="b6" />
           <path
             className="side"
-            fill={bg7}
-            on = "off"
+            fill={b[6]}            
             onClick={() => props.editStep("b7")}
             d="M 199.07275,334.54123 59.238281,948.68945 98.786571,938.93436 228.14697,359.25022 Z"
             transform="scale(0.26458333)"
