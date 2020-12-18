@@ -10,7 +10,7 @@ class Synth extends Component {
 
   state = {
     notes: {
-      mood1: ["D", "F", "A", "C", "D", "E", "G"]
+      mood1: ["D", "E", "F", "G", "A", "B", "C"]
     },
     steps: {
       b1: { active: false, note: 1 },
@@ -89,6 +89,12 @@ class Synth extends Component {
     this.transport.stop()
   }
 
+  handleOctaveChange = (synth,value) => {
+    this.setState({
+      [synth]: value 
+    })
+  }
+
   repeat = (time) => {
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
@@ -98,6 +104,7 @@ class Synth extends Component {
       const noteNum = this.state.steps[`b${stepCount + 1}`].note - 1;
       const note = this.state.notes.mood1[noteNum]+octave;      
       this.synth1.triggerAttackRelease(note, "32n", time)
+      console.log(note)
     }
 
     if (this.state.steps[`s${stepCount + 1}`].active) {
@@ -166,6 +173,12 @@ class Synth extends Component {
       vol2.volume.value = this.value - 35;
     });
 
+    const octaveChange = this.handleOctaveChange
+    var octaveSlide1 = document.getElementById('octave1');
+    octaveSlide1.addEventListener("input", function () {
+      octaveChange("synth1Octave",this.value)
+    })
+
 
   }
 
@@ -210,15 +223,10 @@ class Synth extends Component {
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
             />
-            {editStep}
-            {/* <Transition
-              timeout={300}>
-              {editStep}
-            </Transition> */}
+            {editStep}            
           </div>
           <div className="item2">
-            <Heptagram
-              // toggleStep={this.handleToggleStep}
+            <Heptagram              
               stepsActive={this.state.steps}
               stepEditing={this.state.editStep}
               editStep={this.handleEditStep}
