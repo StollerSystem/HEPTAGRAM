@@ -4,13 +4,13 @@ import Controls from './Controls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
 import { BorderLight, starLight } from './Visuals';
-
+// import { Transition } from 'react-transition-group';
 
 class Synth extends Component {
 
   state = {
     notes: {
-      mood1: ["D3", "F3", "A3", "C4", "D4", "E4", "G4"]
+      mood1: ["D", "F", "A", "C", "D", "E", "G"]
     },
     steps: {
       b1: { active: false, note: 1 },
@@ -29,7 +29,9 @@ class Synth extends Component {
       s6: { active: false, note: 6 },
       s7: { active: false, note: 7 }
     },
-    stepEdit: null
+    stepEdit: null,
+    synth1Octave: 3,
+    synth2Octave: 2
   };
 
   transport = Tone.Transport;
@@ -40,12 +42,13 @@ class Synth extends Component {
   volume1 = new Tone.Volume(-17);
   delay = new Tone.FeedbackDelay(.5, .5);
   filter1 = new Tone.Filter(7500, 'lowpass', -24);
-  synth1 = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
-  
+  // synth1 = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
+  synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay,  Tone.Destination);
+
 
   volume2 = new Tone.Volume(-17);
   filter2 = new Tone.Filter(7500, 'lowpass', -24);
-  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, Tone.Destination);
+  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);
   // notes = this.state.steps
   // sequence = new Tone.Pattern(
   //   (time, note) => {
@@ -77,7 +80,7 @@ class Synth extends Component {
 
   handleSequenceStart = () => {
     Tone.start();
-    console.log(this.transport.bpm.value)
+    // console.log(this.transport.bpm.value)
     // this.sequence.start(0)
     this.transport.start()
   }
@@ -90,14 +93,18 @@ class Synth extends Component {
     let stepCount = this.index % 7;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
 
-    if (this.state.steps[`b${stepCount + 1}`].active) {      
-      const note = this.state.steps[`b${stepCount + 1}`].note-1;
-      this.synth1.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
+    if (this.state.steps[`b${stepCount + 1}`].active) {
+      const octave = this.state.synth1Octave.toString();
+      const noteNum = this.state.steps[`b${stepCount + 1}`].note - 1;
+      const note = this.state.notes.mood1[noteNum]+octave;      
+      this.synth1.triggerAttackRelease(note, "32n", time)
     }
 
-    if (this.state.steps[`s${stepCount + 1}`].active) {      
-      const note = this.state.steps[`s${stepCount + 1}`].note-1;
-      this.synth2.triggerAttackRelease(this.state.notes.mood1[note], "32n", time)
+    if (this.state.steps[`s${stepCount + 1}`].active) {
+      const octave = this.state.synth2Octave.toString();
+      const noteNum = this.state.steps[`s${stepCount + 1}`].note - 1;
+      const note = this.state.notes.mood1[noteNum]+octave;
+      this.synth2.triggerAttackRelease(note, "32n", time)
     }
 
 
@@ -113,8 +120,8 @@ class Synth extends Component {
 
   componentDidMount() {
 
-    this.synth1.oscillator.type = "square";  
-    this.synth2.oscillator.type = "sawtooth";  
+    this.synth1.oscillator.type = "square";
+    this.synth2.oscillator.type = "sawtooth";
 
     this.transport.bpm.value = 90
     this.transport.scheduleRepeat(this.repeat, '8n');
@@ -149,32 +156,38 @@ class Synth extends Component {
 
     const vol1 = this.volume1;
     var volumeSlide = document.getElementById('volume1');
-    volumeSlide.addEventListener("input", function() {     
-      vol1.volume.value = this.value-35;     
+    volumeSlide.addEventListener("input", function () {
+      vol1.volume.value = this.value - 35;
+    });
+
+    const vol2 = this.volume2;
+    var volumeSlide2 = document.getElementById('volume2');
+    volumeSlide2.addEventListener("input", function () {
+      vol2.volume.value = this.value - 35;
     });
 
 
   }
 
   NoteListener = (e) => {
-    if (e.target.id === "noteSlider") {      
-      if (e.target.value) {        
+    if (e.target.id === "noteSlider") {
+      if (e.target.value) {
         let steps = this.state.steps;
         steps[this.state.editStep].note = e.target.value
-        this.setState({ steps: steps })        
+        this.setState({ steps: steps })
       };
     };
   };
- 
-  onKeyPress = (event) => {    
+
+  onKeyPress = (event) => {
     if (this.state.editStep && event.key === " ") {
       this.handleToggleStep(this.state.editStep)
     }
-  }  
+  }
 
- 
-  render() { 
- 
+
+  render() {
+
     let editStep = null
     if (this.state.editStep) {
       editStep = <EditStep
@@ -184,6 +197,7 @@ class Synth extends Component {
         attachListener={this.attachNoteListener}
         editStep={this.handleEditStep}
         currentStep={this.state.steps[this.state.editStep]}
+        key={1}
       />
 
     }
@@ -197,6 +211,10 @@ class Synth extends Component {
               stop={this.handleSequenceStop}
             />
             {editStep}
+            {/* <Transition
+              timeout={300}>
+              {editStep}
+            </Transition> */}
           </div>
           <div className="item2">
             <Heptagram
@@ -204,7 +222,7 @@ class Synth extends Component {
               stepsActive={this.state.steps}
               stepEditing={this.state.editStep}
               editStep={this.handleEditStep}
-              />
+            />
           </div>
           <div className="item3">
           </div>
