@@ -9,7 +9,7 @@ function Controls(props) {
       <button onClick={props.start}>start</button>
       <button onClick={props.stop}>stop</button>
       <p>BPM<input type="range" min="20" max="250" defaultValue="90" className="slider" id="bpmCount"/></p>
-      <p>DLY LVL<input type="range" min="0" max="100" defaultValue="0" className="slider" id="delayLevel"/></p> 
+      <p>DLY LVL<input type="range" min="0" max="60" defaultValue="0" className="slider" id="delayLevel"/></p> 
       <div className="synthControls">
         <p>SYNTH 1</p>
         <p>OCTAVE<input type="range" min="1" max="5" defaultValue="3" className="slider" id="octave1"/></p>

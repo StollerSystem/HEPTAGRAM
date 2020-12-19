@@ -4,9 +4,9 @@ function EditStep(props) {
 
   const id = props.stepId;
 
-  let buttonText = "ACTIVATE!";
+  let buttonText = "ACTIVATE! (space)";
   if (props.currentStep.active) {
-    buttonText = "DEACTIVATE!"
+    buttonText = "DEACTIVATE! (space)"
   }
 
   return (
@@ -14,10 +14,10 @@ function EditStep(props) {
       <p>EDIT STEP: {id.toUpperCase()}</p>
       <p>NOTE<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
       <button onClick={() => props.toggleStep(id)}>{buttonText}</button>
-      <button onClick={() => props.editStep(id)}>CLOSE</button>
+      <button onClick={() => props.editStep(id)}>CLOSE (x)</button>
       {/* <div onKeyPress={() => props.toggleStep(id)}></div> */}
     </div>      
   )  
 }
 
-export default EditStep;
+export default EditStep;  

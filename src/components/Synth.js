@@ -31,24 +31,23 @@ class Synth extends Component {
     },
     stepEdit: null,
     synth1Octave: 3,
-    synth2Octave: 2
+    synth2Octave: 2,
+    currentMood: "mood1"
   };
 
   transport = Tone.Transport;
   index = 0;
   draw = Tone.Draw
-
+  delay = new Tone.FeedbackDelay(.5, .5);
 
   volume1 = new Tone.Volume(-17);
-  delay = new Tone.FeedbackDelay(.5, .5);
   filter1 = new Tone.Filter(7500, 'lowpass', -24);
-  // synth1 = new Tone.Synth().chain(this.volume1, this.delay, this.filter1, Tone.Destination);
-  synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay,  Tone.Destination);
-
+  synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay, Tone.Destination);
 
   volume2 = new Tone.Volume(-17);
   filter2 = new Tone.Filter(7500, 'lowpass', -24);
   synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);
+
   // notes = this.state.steps
   // sequence = new Tone.Pattern(
   //   (time, note) => {
@@ -57,6 +56,7 @@ class Synth extends Component {
   //   this.notes,
   //   "upDown"   
   // )
+
   handleToggleStep = (id) => {
     let steps = this.state.steps;
     steps[id].active = !steps[id].active;
@@ -80,7 +80,6 @@ class Synth extends Component {
 
   handleSequenceStart = () => {
     Tone.start();
-    // console.log(this.transport.bpm.value)
     // this.sequence.start(0)
     this.transport.start()
   }
@@ -89,20 +88,21 @@ class Synth extends Component {
     this.transport.stop()
   }
 
-  handleOctaveChange = (synth,value) => {
+  handleOctaveChange = (synth, value) => {
     this.setState({
-      [synth]: value 
+      [synth]: value
     })
   }
 
   repeat = (time) => {
     let stepCount = this.index % 7;
+    const mood = this.state.currentMood;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
 
     if (this.state.steps[`b${stepCount + 1}`].active) {
       const octave = this.state.synth1Octave.toString();
       const noteNum = this.state.steps[`b${stepCount + 1}`].note - 1;
-      const note = this.state.notes.mood1[noteNum]+octave;      
+      const note = this.state.notes[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "32n", time)
       console.log(note)
     }
@@ -110,18 +110,15 @@ class Synth extends Component {
     if (this.state.steps[`s${stepCount + 1}`].active) {
       const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${stepCount + 1}`].note - 1;
-      const note = this.state.notes.mood1[noteNum]+octave;
+      const note = this.state.notes[mood][noteNum] + octave;
       this.synth2.triggerAttackRelease(note, "32n", time)
     }
-
-
 
     this.index++
     this.draw.schedule(function () {
       BorderLight(stepCount + 1);
       starLight(stepCount + 1);
     }, time)
-
   }
 
 
@@ -137,9 +134,11 @@ class Synth extends Component {
     document.addEventListener("input", this.NoteListener);
     window.addEventListener('keypress', this.onKeyPress)
 
-    var delaySlide = document.getElementById('delayLevel');
     const delay = this.delay;
     delay.wet.value = 0;
+    delay.maxDelay = 3;
+
+    var delaySlide = document.getElementById('delayLevel');
     delaySlide.addEventListener("input", function () {
       delay.wet.value = this.value / 100;
     });
@@ -159,6 +158,8 @@ class Synth extends Component {
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
       Tone.Transport.bpm.value = this.value;
+      delay.delayTime.value = (45000/this.value)/1000;
+      console.log(delay.delayTime.value);
     });
 
     const vol1 = this.volume1;
@@ -176,7 +177,12 @@ class Synth extends Component {
     const octaveChange = this.handleOctaveChange
     var octaveSlide1 = document.getElementById('octave1');
     octaveSlide1.addEventListener("input", function () {
-      octaveChange("synth1Octave",this.value)
+      octaveChange("synth1Octave", this.value)
+    })
+    
+    var octaveSlide2 = document.getElementById('octave2');
+    octaveSlide2.addEventListener("input", function () {
+      octaveChange("synth2Octave", this.value)
     })
 
 
@@ -193,10 +199,19 @@ class Synth extends Component {
   };
 
   onKeyPress = (event) => {
+    console.log(event.key)
     if (this.state.editStep && event.key === " ") {
       this.handleToggleStep(this.state.editStep)
+    } else if (event.key=== " " && this.transport.state !== "started") {
+      this.handleSequenceStart();   
+      console.log(this.transport.state)
+    } else if (event.key=== " ") {
+      this.handleSequenceStop();
+      console.log(this.transport.state)
+    } else if (this.state.editStep && event.key === "x") {
+      this.setState({editStep: null})
     }
-  }
+  } 
 
 
   render() {
@@ -223,10 +238,10 @@ class Synth extends Component {
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
             />
-            {editStep}            
+            {editStep}
           </div>
           <div className="item2">
-            <Heptagram              
+            <Heptagram
               stepsActive={this.state.steps}
               stepEditing={this.state.editStep}
               editStep={this.handleEditStep}
