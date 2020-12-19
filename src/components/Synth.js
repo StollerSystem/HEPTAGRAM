@@ -34,8 +34,8 @@ class Synth extends Component {
     synth1Octave: 3,
     synth2Octave: 2,
     currentMood: "mood1",
-    synth1Pattern: 2,
-    synth2Pattern: 2
+    synth1Pattern: 1,
+    synth2Pattern: 1
   };
 
   transport = Tone.Transport;
@@ -149,17 +149,15 @@ class Synth extends Component {
 
     this.synth1.oscillator.type = "square";
     this.synth2.oscillator.type = "sawtooth";
-
     this.transport.bpm.value = 90
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
-
-    document.addEventListener("input", this.NoteListener);
-    window.addEventListener('keypress', this.onKeyPress)
-
     const delay = this.delay;
     delay.wet.value = 0;
     delay.maxDelay = 3;
+
+    document.addEventListener("input", this.NoteListener);
+    window.addEventListener('keypress', this.onKeyPress)
 
     var delaySlide = document.getElementById('delayLevel');
     delaySlide.addEventListener("input", function () {
@@ -212,6 +210,12 @@ class Synth extends Component {
     var patternSlide1 = document.getElementById('pattern1');
     patternSlide1.addEventListener("input", function () {
       patternChange(1,this.value)
+    })
+
+    
+    var patternSlide2 = document.getElementById('pattern2');
+    patternSlide2.addEventListener("input", function () {
+      patternChange(2,this.value)
     })
 
   }
