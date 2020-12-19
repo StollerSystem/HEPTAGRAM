@@ -4,6 +4,7 @@ import Controls from './Controls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
 import { BorderLight, starLight } from './Visuals';
+import { Patterns } from '../constants/Patterns'
 // import { Transition } from 'react-transition-group';
 
 class Synth extends Component {
@@ -32,7 +33,9 @@ class Synth extends Component {
     stepEdit: null,
     synth1Octave: 3,
     synth2Octave: 2,
-    currentMood: "mood1"
+    currentMood: "mood1",
+    synth1Pattern: 2,
+    synth2Pattern: 2
   };
 
   transport = Tone.Transport;
@@ -94,36 +97,50 @@ class Synth extends Component {
     })
   }
 
+  handlePatternChange = (synth, value) => {
+    this.setState({
+      [`synth${synth}Pattern`]: value
+    })
+    console.log(this.state.synth1Pattern)
+  }
+
+
+
   repeat = (time) => {
 
-    const testPattern = [1,2,3,4,5,6,7,6,5,4,3,2,]
-    let patternCount = this.index % testPattern.length
-    let patternStep = testPattern[patternCount]
-    console.log(patternStep)
-
-    let stepCount = this.index % 7;    
     const mood = this.state.currentMood;
+    // console.log(this.state.synth1Pattern)
+    const Pattern1 = Patterns[this.state.synth1Pattern]
+    let patternCount1 = this.index % Pattern1.length
+    let patternStep1 = Pattern1[patternCount1]
+
+    const Pattern2 = Patterns[this.state.synth2Pattern]
+    let patternCount2 = this.index % Pattern2.length
+    let patternStep2 = Pattern2[patternCount2]
+    // console.log(patternStep)
+
+    // let stepCount = this.index % 7;    
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
 
-    if (this.state.steps[`b${stepCount + 1}`].active) {
+    if (this.state.steps[`b${patternStep1}`].active) {
       const octave = this.state.synth1Octave.toString();
-      const noteNum = this.state.steps[`b${patternStep}`].note - 1;
+      const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
       const note = this.state.notes[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "32n", time)
       console.log(note)
     }
 
-    if (this.state.steps[`s${stepCount + 1}`].active) {
+    if (this.state.steps[`s${patternStep2}`].active) {
       const octave = this.state.synth2Octave.toString();
-      const noteNum = this.state.steps[`s${stepCount + 1}`].note - 1;
+      const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
       const note = this.state.notes[mood][noteNum] + octave;
       this.synth2.triggerAttackRelease(note, "32n", time)
     }
 
     this.index++
     this.draw.schedule(function () {
-      BorderLight(patternStep);
-      starLight(stepCount + 1);
+      BorderLight(patternStep1);
+      starLight(patternStep2);
     }, time)
   }
 
@@ -191,6 +208,11 @@ class Synth extends Component {
       octaveChange("synth2Octave", this.value)
     })
 
+    const patternChange = this.handlePatternChange
+    var patternSlide1 = document.getElementById('pattern1');
+    patternSlide1.addEventListener("input", function () {
+      patternChange(1,this.value)
+    })
 
   }
 
