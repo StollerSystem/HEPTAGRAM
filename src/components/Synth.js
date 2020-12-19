@@ -95,13 +95,19 @@ class Synth extends Component {
   }
 
   repeat = (time) => {
-    let stepCount = this.index % 7;
+
+    const testPattern = [1,2,3,4,5,6,7,6,5,4,3,2,]
+    let patternCount = this.index % testPattern.length
+    let patternStep = testPattern[patternCount]
+    console.log(patternStep)
+
+    let stepCount = this.index % 7;    
     const mood = this.state.currentMood;
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
 
     if (this.state.steps[`b${stepCount + 1}`].active) {
       const octave = this.state.synth1Octave.toString();
-      const noteNum = this.state.steps[`b${stepCount + 1}`].note - 1;
+      const noteNum = this.state.steps[`b${patternStep}`].note - 1;
       const note = this.state.notes[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "32n", time)
       console.log(note)
@@ -116,7 +122,7 @@ class Synth extends Component {
 
     this.index++
     this.draw.schedule(function () {
-      BorderLight(stepCount + 1);
+      BorderLight(patternStep);
       starLight(stepCount + 1);
     }, time)
   }
