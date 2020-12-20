@@ -1,5 +1,5 @@
 
-export function BorderLight(id) {  
+export function borderLight(id) {  
   const borderGlow = document.getElementById(`gb${id}`);
   const originalColor = borderGlow.getAttribute("fill");
   borderGlow.setAttribute("fill", "white");

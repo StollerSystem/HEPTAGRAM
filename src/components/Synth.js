@@ -3,38 +3,38 @@ import * as Tone from 'tone';
 import Controls from './Controls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
-import { BorderLight, starLight } from './Visuals';
-import { Patterns } from '../constants/Patterns'
+import { borderLight, starLight } from './Visuals';
+import { patterns, moods } from '../constants/Constants'
 // import { Transition } from 'react-transition-group';
 
 class Synth extends Component {
 
   state = {
-    notes: {
-      mood1: ["D", "E", "F", "G", "A", "B", "C"],
-      mood2: ["E", "F#", "G", "A", "B", "C#", "D"]
-    },
+    // notes: {
+    //   mood1: ["D", "E", "F", "G", "A", "B", "C"],
+    //   mood2: ["E", "F#", "G", "A", "B", "C#", "D"]
+    // },
     steps: {
       b1: { active: false, note: 1 },
-      b2: { active: false, note: 2 },
-      b3: { active: false, note: 3 },
-      b4: { active: false, note: 4 },
-      b5: { active: false, note: 5 },
-      b6: { active: false, note: 6 },
-      b7: { active: false, note: 7 },
+      b2: { active: false, note: 1 },
+      b3: { active: false, note: 1 },
+      b4: { active: false, note: 1 },
+      b5: { active: false, note: 1 },
+      b6: { active: false, note: 1 },
+      b7: { active: false, note: 1 },
 
       s1: { active: false, note: 1 },
-      s2: { active: false, note: 2 },
-      s3: { active: false, note: 3 },
-      s4: { active: false, note: 4 },
-      s5: { active: false, note: 5 },
-      s6: { active: false, note: 6 },
-      s7: { active: false, note: 7 }
+      s2: { active: false, note: 1 },
+      s3: { active: false, note: 1 },
+      s4: { active: false, note: 1 },
+      s5: { active: false, note: 1 },
+      s6: { active: false, note: 1 },
+      s7: { active: false, note: 1 }
     },
     stepEdit: null,
+    currentMood: 1,
     synth1Octave: 3,
     synth2Octave: 2,
-    currentMood: "mood2",
     synth1Pattern: 1,
     synth2Pattern: 1
   };
@@ -111,11 +111,11 @@ class Synth extends Component {
 
     const mood = this.state.currentMood;
     // console.log(this.state.synth1Pattern)
-    const Pattern1 = Patterns[this.state.synth1Pattern]
+    const Pattern1 = patterns[this.state.synth1Pattern]
     let patternCount1 = this.index % Pattern1.length
     let patternStep1 = Pattern1[patternCount1]
 
-    const Pattern2 = Patterns[this.state.synth2Pattern]
+    const Pattern2 = patterns[this.state.synth2Pattern]
     let patternCount2 = this.index % Pattern2.length
     let patternStep2 = Pattern2[patternCount2]
     // console.log(patternStep)
@@ -126,21 +126,22 @@ class Synth extends Component {
     if (this.state.steps[`b${patternStep1}`].active) {
       const octave = this.state.synth1Octave.toString();
       const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
-      const note = this.state.notes[mood][noteNum] + octave;
+      const note = moods[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "32n", time)
-      console.log(note)
+      console.log("SYNTH 1: "+note)
     }
 
     if (this.state.steps[`s${patternStep2}`].active) {
       const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
-      const note = this.state.notes[mood][noteNum] + octave;
+      const note = moods[mood][noteNum] + octave;
       this.synth2.triggerAttackRelease(note, "32n", time)
+      console.log("SYNTH 2: "+note)
     }
 
     this.index++
     this.draw.schedule(function () {
-      BorderLight(patternStep1);
+      borderLight(patternStep1);
       starLight(patternStep2);
     }, time)
   }
