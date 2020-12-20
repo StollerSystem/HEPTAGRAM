@@ -2,27 +2,27 @@ import React from 'react';
 
 function Heptagram(props) {
 
-  let b = [null, null, null, null, null, null, null]
-  let bg = [null, null, null, null, null, null, null]
-  let s = [null, null, null, null, null, null, null]
-  let sg = [null, null, null, null, null, null, null]
+  let b = [null, null, null, null, null, null, null];
+  let bg = [null, null, null, null, null, null, null];
+  let s = [null, null, null, null, null, null, null];
+  let sg = [null, null, null, null, null, null, null];
 
-  for (let i = 0; i < b.length; i++) {
+  for (let i = 0; i < b.length; i++) {    
     if (props.stepsActive[`b${i + 1}`].active) {
       b[i] = "#00d547";
       bg[i] = "#00d547";
-    }
+    };
     if (props.stepEditing === `b${i + 1}`) {
       bg[i] = "#009f94"
-    }
+    };
     if (props.stepsActive[`s${i + 1}`].active) {
       s[i] = "#00d547";
       sg[i] = "#00d547";
-    }
+    };
     if (props.stepEditing === `s${i + 1}`) {
       sg[i] = "#009f94"
-    }
-  }
+    };
+  };
 
   return (
     <React.Fragment>
@@ -171,7 +171,6 @@ function Heptagram(props) {
         </g>
         <g
           id="border">
-
           <path
             className="side"
             fill={b[0]}

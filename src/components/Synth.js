@@ -11,7 +11,8 @@ class Synth extends Component {
 
   state = {
     notes: {
-      mood1: ["D", "E", "F", "G", "A", "B", "C"]
+      mood1: ["D", "E", "F", "G", "A", "B", "C"],
+      mood2: ["E", "F#", "G", "A", "B", "C#", "D"]
     },
     steps: {
       b1: { active: false, note: 1 },
@@ -33,7 +34,7 @@ class Synth extends Component {
     stepEdit: null,
     synth1Octave: 3,
     synth2Octave: 2,
-    currentMood: "mood1",
+    currentMood: "mood2",
     synth1Pattern: 1,
     synth2Pattern: 1
   };
@@ -44,11 +45,11 @@ class Synth extends Component {
   delay = new Tone.FeedbackDelay(.5, .5);
 
   volume1 = new Tone.Volume(-17);
-  filter1 = new Tone.Filter(7500, 'lowpass', -24);
+  filter1 = new Tone.Filter(5000, 'lowpass', -24);
   synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay, Tone.Destination);
 
   volume2 = new Tone.Volume(-17);
-  filter2 = new Tone.Filter(7500, 'lowpass', -24);
+  filter2 = new Tone.Filter(5000, 'lowpass', -24);
   synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);
 
   // notes = this.state.steps
@@ -153,10 +154,11 @@ class Synth extends Component {
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
     const delay = this.delay;
-    delay.wet.value = 0;
+    delay.wet.value = .1;
     delay.maxDelay = 3;
 
-    document.addEventListener("input", this.NoteListener);
+    document.addEventListener("input", this.noteSliderListener);
+    // document.addEventListener("click", this.globalClickListener)
     window.addEventListener('keypress', this.onKeyPress)
 
     var delaySlide = document.getElementById('delayLevel');
@@ -179,14 +181,8 @@ class Synth extends Component {
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
       Tone.Transport.bpm.value = this.value;
-
       let dottedEighth = (45000/this.value)/1000;
       let delayTime = (dottedEighth < 1) ? dottedEighth : 1;
-
-      // console.log(delayTime)
-      // delay.delayTime.vaule = (delayTime <= 1) ? delayTime : 1;
-
-
       delay.delayTime.value = delayTime;
       console.log(delay.delayTime.value);
     });
@@ -226,7 +222,7 @@ class Synth extends Component {
     })
   }
 
-  NoteListener = (e) => {
+  noteSliderListener = (e) => {
     if (e.target.id === "noteSlider") {
       if (e.target.value) {
         let steps = this.state.steps;
@@ -235,6 +231,10 @@ class Synth extends Component {
       };
     };
   };
+
+  // globalClickListener = (e) => {
+  //   console.log(e.target)
+  // }
 
   onKeyPress = (event) => {
     console.log(event.key)
