@@ -13,7 +13,8 @@ function EditStep(props) {
     <div className="editBox">
       <div className="synthControls">
         <p>EDIT STEP: {id.toUpperCase()}</p>
-        <p>NOTE<input type="range" min="1" max="7" defaultValue="1" className="slider" id="noteSlider"/></p>
+        <p>NOTE<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
+        onChange={props.changeNote}/></p>
         <button onClick={() => props.toggleStep(id)}>{buttonText}</button>
         <button onClick={() => props.editStep(id)}>CLOSE (x)</button>
         {/* <div onKeyPress={() => props.toggleStep(id)}></div> */}

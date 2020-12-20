@@ -75,9 +75,10 @@ class Synth extends Component {
     }
   }
 
-  handleChangeNote = (step, note) => {
+  handleChangeNote = (e) => {
     let steps = this.state.steps;
-    steps[step].note = note;
+    steps[this.state.editStep].note = e.target.value
+    console.log(e.target.value)
     this.setState({ steps: steps })
   }
 
@@ -158,7 +159,7 @@ class Synth extends Component {
     delay.wet.value = .1;
     delay.maxDelay = 3;
 
-    document.addEventListener("input", this.noteSliderListener);
+    // document.addEventListener("input", this.noteSliderListener);
     // document.addEventListener("click", this.globalClickListener)
     window.addEventListener('keypress', this.onKeyPress)
 
@@ -223,15 +224,15 @@ class Synth extends Component {
     })
   }
 
-  noteSliderListener = (e) => {
-    if (e.target.id === "noteSlider") {
-      if (e.target.value) {
-        let steps = this.state.steps;
-        steps[this.state.editStep].note = e.target.value
-        this.setState({ steps: steps })
-      };
-    };
-  };
+  // noteSliderListener = (e) => {
+  //   if (e.target.id === "noteSlider") {
+  //     if (e.target.value) {
+  //       let steps = this.state.steps;
+  //       steps[this.state.editStep].note = e.target.value
+  //       this.setState({ steps: steps })
+  //     };
+  //   };
+  // };
 
   // globalClickListener = (e) => {
   //   console.log(e.target)
