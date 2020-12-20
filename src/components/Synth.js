@@ -128,7 +128,7 @@ class Synth extends Component {
       const octave = this.state.synth1Octave.toString();
       const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
       const note = moods[mood][noteNum] + octave;
-      this.synth1.triggerAttackRelease(note, "32n", time)
+      this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 1: "+note)
     }
 
@@ -136,7 +136,7 @@ class Synth extends Component {
       const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
       const note = moods[mood][noteNum] + octave;
-      this.synth2.triggerAttackRelease(note, "32n", time)
+      this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 2: "+note)
     }
 
@@ -222,6 +222,18 @@ class Synth extends Component {
     patternSlide2.addEventListener("input", function () {
       patternChange(2,this.value)
     })
+
+    const synth1 = this.synth1;
+    var releaseSlide1 = document.getElementById('release1');
+    releaseSlide1.addEventListener("input", function() {     
+      synth1.envelope.release = this.value/2;     
+    });
+
+    const synth2 = this.synth2;
+    var releaseSlide2 = document.getElementById('release2');
+    releaseSlide2.addEventListener("input", function() {     
+      synth2.envelope.release = this.value/2;     
+    });
   }
 
   // noteSliderListener = (e) => {
