@@ -179,7 +179,15 @@ class Synth extends Component {
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
       Tone.Transport.bpm.value = this.value;
-      delay.delayTime.value = (45000/this.value)/1000;
+
+      let dottedEighth = (45000/this.value)/1000;
+      let delayTime = (dottedEighth < 1) ? dottedEighth : 1;
+
+      // console.log(delayTime)
+      // delay.delayTime.vaule = (delayTime <= 1) ? delayTime : 1;
+
+
+      delay.delayTime.value = delayTime;
       console.log(delay.delayTime.value);
     });
 
@@ -211,13 +219,11 @@ class Synth extends Component {
     patternSlide1.addEventListener("input", function () {
       patternChange(1,this.value)
     })
-
     
     var patternSlide2 = document.getElementById('pattern2');
     patternSlide2.addEventListener("input", function () {
       patternChange(2,this.value)
     })
-
   }
 
   NoteListener = (e) => {
@@ -259,7 +265,6 @@ class Synth extends Component {
         currentStep={this.state.steps[this.state.editStep]}
         key={1}
       />
-
     }
 
     return (
