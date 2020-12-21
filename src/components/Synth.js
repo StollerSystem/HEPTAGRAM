@@ -12,12 +12,12 @@ class Synth extends Component {
   state = {    
     steps: {
       b1: { active: false, note: 1 },
-      b2: { active: false, note: 1 },
-      b3: { active: false, note: 1 },
-      b4: { active: false, note: 1 },
-      b5: { active: false, note: 1 },
-      b6: { active: false, note: 1 },
-      b7: { active: false, note: 1 },
+      b2: { active: false, note: 2 },
+      b3: { active: false, note: 3 },
+      b4: { active: false, note: 4 },
+      b5: { active: false, note: 5 },
+      b6: { active: false, note: 6 },
+      b7: { active: false, note: 7 },
 
       s1: { active: false, note: 1 },
       s2: { active: false, note: 1 },
@@ -41,14 +41,18 @@ class Synth extends Component {
   index = 0;
   draw = Tone.Draw
   delay = new Tone.FeedbackDelay(.5, .5);
+  chorus = new Tone.Chorus(5, 2.5, 1);
+  // reverb = new Tone.JCReverb(0.4)
+  reverb = new Tone.Freeverb(.9, 3000)
+
 
   volume1 = new Tone.Volume(-17);
   filter1 = new Tone.Filter(5000, 'lowpass', -24);
-  synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay, Tone.Destination);
+  synth1 = new Tone.Synth().chain(this.volume1, this.filter1, this.delay, this.reverb, Tone.Destination);
 
   volume2 = new Tone.Volume(-17);
   filter2 = new Tone.Filter(5000, 'lowpass', -24);
-  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);  
+  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, this.reverb, Tone.Destination);  
 
 
   handleToggleStep = (id) => {
@@ -171,6 +175,12 @@ class Synth extends Component {
     this.transport.bpm.value = 90
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
+
+    this.chorus.wet.value = 0;
+
+    const reverb = this.reverb;
+    reverb.wet.value = 0;
+
     const delay = this.delay;
     delay.wet.value = .1;
     delay.maxDelay = 3;
@@ -178,6 +188,11 @@ class Synth extends Component {
     // document.addEventListener("input", this.noteSliderListener);
     // document.addEventListener("click", this.globalClickListener)
     window.addEventListener('keypress', this.onKeyPress)
+
+    var reverbSlide = document.getElementById('reverbLevel');
+    reverbSlide.addEventListener("input", function () {
+      reverb.wet.value = this.value / 100;
+    });
 
     var delaySlide = document.getElementById('delayLevel');
     delaySlide.addEventListener("input", function () {
