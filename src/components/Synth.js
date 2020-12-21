@@ -109,9 +109,9 @@ class Synth extends Component {
 
   handleChangeDelayTime = (e) => {
     this.setState({
-      delayTimeDiv: e.target.value
+      delayTimeDiv: parseInt(e.target.value)
     })
-    // console.log(this.state.delayTimeDiv)
+    console.log(this.state.delayTimeDiv)
     const div = delayTimeDiv[this.state.delayTimeDiv]
     const bpm = this.transport.bpm.value
     // console.log(div+bpm)
@@ -125,6 +125,15 @@ class Synth extends Component {
       currentMood: e.target.value
     });
   };
+
+  handleBPMDelayChange = () => {
+    const div = delayTimeDiv[this.state.delayTimeDiv]
+    const bpm = this.transport.bpm.value
+    console.log(div+bpm)
+    const delayMS = (div / bpm) / 1000;
+    const delayTime = (delayMS < 1) ? delayMS : 1;
+    this.delay.delayTime.value = delayTime;
+  }
 
 
   repeat = (time) => {
@@ -212,13 +221,11 @@ class Synth extends Component {
       filter2.frequency.value = this.value * 100;
     });
 
+    const handleDelayChange = this.handleBPMDelayChange;
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
       Tone.Transport.bpm.value = this.value;
-      let dottedEighth = (45000 / this.value) / 1000;
-      let delayTime = (dottedEighth < 1) ? dottedEighth : 1;
-      delay.delayTime.value = delayTime;
-      console.log(delay.delayTime.value);
+      handleDelayChange(this.value)      
     });
 
     const vol1 = this.volume1;
