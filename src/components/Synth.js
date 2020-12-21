@@ -4,7 +4,7 @@ import Controls from './Controls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
 import { borderLight, starLight } from './Visuals';
-import { patterns, moods } from '../constants/Constants'
+import { patterns, moods, delayTimeDiv } from '../constants/Constants'
 // import { Transition } from 'react-transition-group';
 
 class Synth extends Component {
@@ -36,7 +36,8 @@ class Synth extends Component {
     synth1Octave: 3,
     synth2Octave: 2,
     synth1Pattern: 1,
-    synth2Pattern: 1
+    synth2Pattern: 1,
+    delayTimeDiv: 3,
   };
 
   transport = Tone.Transport;
@@ -111,18 +112,15 @@ class Synth extends Component {
   repeat = (time) => {
 
     const mood = this.state.currentMood;
-    // console.log(this.state.synth1Pattern)
-    const Pattern1 = patterns[this.state.synth1Pattern]
-    let patternCount1 = this.index % Pattern1.length
-    let patternStep1 = Pattern1[patternCount1]
 
-    const Pattern2 = patterns[this.state.synth2Pattern]
-    let patternCount2 = this.index % Pattern2.length
-    let patternStep2 = Pattern2[patternCount2]
-    // console.log(patternStep)
-
+    // console.log(this.state.synth1Pattern)    
+    // console.log(patternStep)    
     // let stepCount = this.index % 7;    
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
+
+    const Pattern1 = patterns[this.state.synth1Pattern]
+    const patternCount1 = this.index % Pattern1.length
+    const patternStep1 = Pattern1[patternCount1]
     const active1 = this.state.steps[`b${patternStep1}`].active;
     if (active1) {
       const octave = this.state.synth1Octave.toString();
@@ -130,8 +128,11 @@ class Synth extends Component {
       const note = moods[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 1: " + note)
-    }
-
+    }    
+    
+    const Pattern2 = patterns[this.state.synth2Pattern]
+    const patternCount2 = this.index % Pattern2.length
+    const patternStep2 = Pattern2[patternCount2]
     const active2 = this.state.steps[`s${patternStep2}`].active;
     if (active2) {
       const octave = this.state.synth2Octave.toString();
@@ -140,15 +141,15 @@ class Synth extends Component {
       this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 2: " + note)
     }
-
-    this.index++
-
+    
     let synth1Rel = this.synth1.envelope.release
     let synth2Rel = this.synth2.envelope.release
     this.draw.schedule(function () {
       borderLight(patternStep1, active1, synth1Rel);
       starLight(patternStep2, active2, synth2Rel);
     }, time)
+
+    this.index++
   }
 
 
@@ -170,6 +171,11 @@ class Synth extends Component {
     var delaySlide = document.getElementById('delayLevel');
     delaySlide.addEventListener("input", function () {
       delay.wet.value = this.value / 100;
+    });
+
+    var delaySlide = document.getElementById('delayFB');
+    delaySlide.addEventListener("input", function () {
+      delay.feedback.value = this.value / 100;
     });
 
     const filter1 = this.filter1;

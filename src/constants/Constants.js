@@ -10,3 +10,10 @@ export const moods = {
   1: ["D", "E", "F", "G", "A", "B", "C"],
   2: ["E", "F#", "G", "A", "B", "C#", "D"]
 }
+
+export const delayTimeDiv = {  
+    1: 15000,
+    2: 30000,
+    3: 45000,
+    4: 60000  
+}
