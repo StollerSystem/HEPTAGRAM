@@ -48,17 +48,28 @@ body {
 .side:hover {
   /* fill: #003c3e; */
   opacity: 1;
+  filter: brightness(1.5);  
 }
 
-/* .main {
-  display: flex;
-  justify-content: center;
-} */
+.main {
+  /* display: flex;
+  justify-content: center; */
+  padding:5px
+}
+
+@media only screen and (max-width: 1200px) {
+  body {
+    background-color: lightblue;
+  }
+}
 
 .grid-container {
   display: inline-grid;
-  grid-column-gap: 50px;
-  grid-template-columns: auto auto auto;
+  /* grid-column-gap: 50px; */
+  /* grid-template-columns: repeat(auto-fit, 1fr); */
+  /* grid-template-columns: repeat(3, minmax(240px, 1fr)); */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
 }
 
 .editBox {
@@ -79,9 +90,18 @@ body {
   padding: 10px;
   border: solid rgb(45, 45, 45);
   border-width: 1px;
-  margin: 5px
+  margin: 5px;
+  filter: brightness(.75);  
 }
 
 /* .col {
   width:
 } */
+
+.synthControls:hover {
+  filter: brightness(1.5);  
+}
+
+#glow {
+  filter: brightness(0);  
+}

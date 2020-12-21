@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as Tone from 'tone';
 import Controls from './Controls';
+import RightControls from './RightControls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
 import { borderLight, starLight } from './Visuals';
@@ -315,6 +316,7 @@ class Synth extends Component {
               changeDelayTime={this.handleChangeDelayTime}
               changeMood={this.handleMoodChange}
             />
+            {editStep}
           </div>
           <div className="item2 col">
             <Heptagram
@@ -324,7 +326,7 @@ class Synth extends Component {
               />
           </div>
           <div className="item3 col">
-              {editStep}
+            <RightControls/>
           </div>
         </div>
       </React.Fragment>

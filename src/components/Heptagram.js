@@ -31,7 +31,7 @@ function Heptagram(props) {
         fill="#1f1f1f"
         width="250mm"
         height="250mm"
-        viewBox="10 0 400 400"
+        viewBox="4 2 400 400"
         id="svg2386">
         {/* <filter
           id="filter3606"
