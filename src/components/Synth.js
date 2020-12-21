@@ -259,13 +259,13 @@ class Synth extends Component {
     const synth1 = this.synth1;
     var releaseSlide1 = document.getElementById('release1');
     releaseSlide1.addEventListener("input", function () {
-      synth1.envelope.release = this.value / 2;
+      synth1.envelope.release = this.value / 4;
     });
 
     const synth2 = this.synth2;
     var releaseSlide2 = document.getElementById('release2');
     releaseSlide2.addEventListener("input", function () {
-      synth2.envelope.release = this.value / 2;
+      synth2.envelope.release = this.value / 4;
     });
   }
 
