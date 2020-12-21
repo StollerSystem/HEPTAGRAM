@@ -1,6 +1,7 @@
 body {
   background-color: black;
-  color: white;
+  color: rgb(147, 147, 147);
+  font-family: 'Saira Extra Condensed', sans-serif;
 }
 
 
@@ -27,6 +28,7 @@ body {
   box-shadow: 0px 0px 1px 1px#00d547;
   background: black;
   cursor: pointer;
+  transition:  all .5s ease;
 }
 
 .slider::-webkit-slider-thumb:hover {
@@ -48,7 +50,7 @@ body {
 .side:hover {
   /* fill: #003c3e; */
   opacity: 1;
-  filter: brightness(1.5);  
+  /* filter: brightness(1.5);   */
 }
 
 .main {
@@ -81,7 +83,7 @@ body {
 
 .controlBox {
   padding: 10px;
-  border: solid rgb(45, 45, 45);
+  border: solid rgb(36, 36, 36);
   border-width: 1px;
   
 }
@@ -91,7 +93,8 @@ body {
   border: solid rgb(45, 45, 45);
   border-width: 1px;
   margin: 5px;
-  filter: brightness(.75);  
+  filter: brightness(.25);  
+  transition:  all .5s ease;
 }
 
 /* .col {
@@ -102,6 +105,3 @@ body {
   filter: brightness(1.5);  
 }
 
-#glow {
-  filter: brightness(0);  
-}
