@@ -111,17 +111,20 @@ class Synth extends Component {
     this.setState({
       delayTimeDiv: e.target.value
     })
-    console.log(this.state.delayTimeDiv)
-
+    // console.log(this.state.delayTimeDiv)
     const div = delayTimeDiv[this.state.delayTimeDiv]
     const bpm = this.transport.bpm.value
-    console.log(div+bpm)
-    let delayMS = (div / bpm) / 1000;
-    let delayTime = (delayMS < 1) ? delayMS : 1;
+    // console.log(div+bpm)
+    const delayMS = (div / bpm) / 1000;
+    const delayTime = (delayMS < 1) ? delayMS : 1;
     this.delay.delayTime.value = delayTime;
-
   }
 
+  handleMoodChange = (e) => {
+    this.setState({
+      currentMood: e.target.value
+    });
+  };
 
 
   repeat = (time) => {
@@ -157,8 +160,8 @@ class Synth extends Component {
       console.log("SYNTH 2: " + note)
     }
 
-    let synth1Rel = this.synth1.envelope.release
-    let synth2Rel = this.synth2.envelope.release
+    const synth1Rel = this.synth1.envelope.release
+    const synth2Rel = this.synth2.envelope.release
     this.draw.schedule(function () {
       borderLight(patternStep1, active1, synth1Rel);
       starLight(patternStep2, active2, synth2Rel);
@@ -314,6 +317,7 @@ class Synth extends Component {
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
               changeDelayTime={this.handleChangeDelayTime}
+              changeMood={this.handleMoodChange}
             />
             {editStep}
           </div>

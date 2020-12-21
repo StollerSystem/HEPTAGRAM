@@ -9,6 +9,7 @@ function Controls(props) {
       <button onClick={props.start}>start</button>
       <button onClick={props.stop}>stop</button>
       <p>BPM<input type="range" min="20" max="250" defaultValue="90" className="slider" id="bpmCount"/></p>
+      <p>MOOD<input type="range" min="1" max="2" defaultValue="1" className="slider" id="moodSlider" onChange={props.changeMood}/></p> 
       <p>DLY LVL<input type="range" min="0" max="60" defaultValue="10" className="slider" id="delayLevel"/></p>
       <p>DLY TIME<input type="range" min="1" max="4" defaultValue="3" className="slider" id="delayTime" onChange={props.changeDelayTime}/></p> 
       <p>DLY FB<input type="range" min="1" max="90" defaultValue="50" className="slider" id="delayFB"/></p>  
