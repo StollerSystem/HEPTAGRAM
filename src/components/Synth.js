@@ -34,7 +34,7 @@ class Synth extends Component {
     stepEdit: null,
     currentMood: 1,
     synth1Octave: 0,
-    synth2Octave: 2,
+    synth2Octave: -1,
     synth1Pattern: 1,
     synth2Pattern: 1,
     delayTimeDiv: 3,
@@ -140,15 +140,12 @@ class Synth extends Component {
     const patternCount1 = this.index % Pattern1.length
     const patternStep1 = Pattern1[patternCount1]
     const active1 = this.state.steps[`b${patternStep1}`].active;
-    if (active1) {
-      // const octave = this.state.synth1Octave.toString();
-      const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
-      // const note = moods[mood][noteNum] + octave;
+    if (active1) {      
+      const noteNum = this.state.steps[`b${patternStep1}`].note - 1;      
       const octave = this.state.synth1Octave;
       const split = moods[mood][noteNum].split('');
-      const note = split[0]+(parseInt(split[1])+octave).toString();
-      // console.log(note)
-
+      split[split.length-1] = (parseInt(split[split.length-1])+octave).toString();
+      const note = split.join('')      
       this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 1: " + note)
     }
@@ -158,9 +155,11 @@ class Synth extends Component {
     const patternStep2 = Pattern2[patternCount2]
     const active2 = this.state.steps[`s${patternStep2}`].active;
     if (active2) {
-      const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
-      const note = moods[2][noteNum] + octave;
+      const octave = this.state.synth2Octave;
+      const split = moods[mood][noteNum].split('');
+      split[split.length-1] = (parseInt(split[split.length-1])+octave).toString();
+      const note = split.join('')
       this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 2: " + note)
     }
@@ -242,7 +241,7 @@ class Synth extends Component {
 
     var octaveSlide2 = document.getElementById('octave2');
     octaveSlide2.addEventListener("input", function () {
-      octaveChange("synth2Octave", this.value)
+      octaveChange("synth2Octave", this.value-3)
     })
 
     const patternChange = this.handlePatternChange
