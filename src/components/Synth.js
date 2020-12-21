@@ -107,6 +107,21 @@ class Synth extends Component {
     console.log(this.state.synth1Pattern)
   }
 
+  handleChangeDelayTime = (e) => {
+    this.setState({
+      delayTimeDiv: e.target.value
+    })
+    console.log(this.state.delayTimeDiv)
+
+    const div = delayTimeDiv[this.state.delayTimeDiv]
+    const bpm = this.transport.bpm.value
+    console.log(div+bpm)
+    let delayMS = (div / bpm) / 1000;
+    let delayTime = (delayMS < 1) ? delayMS : 1;
+    this.delay.delayTime.value = delayTime;
+
+  }
+
 
 
   repeat = (time) => {
@@ -128,8 +143,8 @@ class Synth extends Component {
       const note = moods[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 1: " + note)
-    }    
-    
+    }
+
     const Pattern2 = patterns[this.state.synth2Pattern]
     const patternCount2 = this.index % Pattern2.length
     const patternStep2 = Pattern2[patternCount2]
@@ -141,7 +156,7 @@ class Synth extends Component {
       this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 2: " + note)
     }
-    
+
     let synth1Rel = this.synth1.envelope.release
     let synth2Rel = this.synth2.envelope.release
     this.draw.schedule(function () {
@@ -173,8 +188,8 @@ class Synth extends Component {
       delay.wet.value = this.value / 100;
     });
 
-    var delaySlide = document.getElementById('delayFB');
-    delaySlide.addEventListener("input", function () {
+    var delayFBSlide = document.getElementById('delayFB');
+    delayFBSlide.addEventListener("input", function () {
       delay.feedback.value = this.value / 100;
     });
 
@@ -298,6 +313,7 @@ class Synth extends Component {
             <Controls
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
+              changeDelayTime={this.handleChangeDelayTime}
             />
             {editStep}
           </div>
