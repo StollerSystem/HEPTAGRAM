@@ -20,12 +20,12 @@ class Synth extends Component {
       b7: { active: false, note: 7 },
 
       s1: { active: false, note: 1 },
-      s2: { active: false, note: 1 },
-      s3: { active: false, note: 1 },
-      s4: { active: false, note: 1 },
-      s5: { active: false, note: 1 },
-      s6: { active: false, note: 1 },
-      s7: { active: false, note: 1 }
+      s2: { active: false, note: 2 },
+      s3: { active: false, note: 3 },
+      s4: { active: false, note: 4 },
+      s5: { active: false, note: 5 },
+      s6: { active: false, note: 6 },
+      s7: { active: false, note: 7 }
     },
     stepEdit: null,
     currentMood: 1,
@@ -41,7 +41,7 @@ class Synth extends Component {
   index = 0;
   draw = Tone.Draw
   delay = new Tone.FeedbackDelay(.5, .5);
-  chorus = new Tone.Chorus(5, 2.5, 1);
+  // chorus = new Tone.Chorus(5, 2.5, 1);
   // reverb = new Tone.JCReverb(0.4)
   reverb = new Tone.Freeverb(.9, 3000)
 
@@ -175,8 +175,7 @@ class Synth extends Component {
     this.transport.bpm.value = 90
     this.transport.scheduleRepeat(this.repeat, '8n');
     this.draw.anticipation = 1;
-
-    this.chorus.wet.value = 0;
+    // this.chorus.wet.value = 0;
 
     const reverb = this.reverb;
     reverb.wet.value = 0;

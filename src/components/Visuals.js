@@ -5,7 +5,7 @@ export function borderLight(id,active,decay) {
   if (active) {
     borderGlow.setAttribute("fill", "white");
   } else {
-    borderGlow.setAttribute("fill", "#7e7e7e");
+    borderGlow.setAttribute("fill", "#525252");
   }  
   setTimeout(function() {    
     borderGlow.setAttribute("fill", originalColor)
@@ -18,7 +18,7 @@ export function starLight(id,active,decay) {
   if (active) {
     starGlow.setAttribute("fill", "white");
   } else {
-    starGlow.setAttribute("fill", "#7e7e7e");
+    starGlow.setAttribute("fill", "#525252");
   }
   setTimeout(function() {    
     starGlow.setAttribute("fill", originalColor)   
