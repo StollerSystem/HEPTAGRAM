@@ -9,11 +9,7 @@ import { patterns, moods, delayTimeDiv } from '../constants/Constants'
 
 class Synth extends Component {
 
-  state = {
-    // notes: {
-    //   mood1: ["D", "E", "F", "G", "A", "B", "C"],
-    //   mood2: ["E", "F#", "G", "A", "B", "C#", "D"]
-    // },
+  state = {    
     steps: {
       b1: { active: false, note: 1 },
       b2: { active: false, note: 1 },
@@ -40,6 +36,7 @@ class Synth extends Component {
     delayTimeDiv: 3,
   };
 
+
   transport = Tone.Transport;
   index = 0;
   draw = Tone.Draw
@@ -51,74 +48,63 @@ class Synth extends Component {
 
   volume2 = new Tone.Volume(-17);
   filter2 = new Tone.Filter(5000, 'lowpass', -24);
-  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);
+  synth2 = new Tone.Synth().chain(this.volume2, this.filter2, this.delay, Tone.Destination);  
 
-  // notes = this.state.steps
-  // sequence = new Tone.Pattern(
-  //   (time, note) => {
-  //     this.synth.triggerAttackRelease(note, "8n", time)
-  //   },
-  //   this.notes,
-  //   "upDown"   
-  // )
 
   handleToggleStep = (id) => {
     let steps = this.state.steps;
     steps[id].active = !steps[id].active;
-    this.setState({ steps: steps })
-  }
+    this.setState({ steps: steps });
+  };
 
   handleEditStep = (id) => {
     if (!this.state.editStep || this.state.editStep !== id) {
       this.setState({ editStep: id })
     } else {
       this.setState({ editStep: null })
-    }
-  }
+    };
+  };
 
   handleChangeNote = (e) => {
     let steps = this.state.steps;
     steps[this.state.editStep].note = e.target.value
-    console.log(e.target.value)
-    this.setState({ steps: steps })
-  }
-
+    // console.log(e.target.value)
+    this.setState({ steps: steps });
+  };
 
   handleSequenceStart = () => {
-    Tone.start();
-    // this.sequence.start(0)
-    this.transport.start()
-  }
+    Tone.start();    
+    this.transport.start();
+  };
 
   handleSequenceStop = () => {
     this.transport.stop()
-  }
+  };
 
   handleOctaveChange = (synth, value) => {
     this.setState({
       [synth]: value
-    })
-  }
+    });
+  };
 
   handlePatternChange = (synth, value) => {
     this.setState({
       [`synth${synth}Pattern`]: value
     })
     console.log(this.state.synth1Pattern)
-  }
+  };
 
-  handleChangeDelayTime = (e) => {
+  handleChangeDelayTime = (e) => {    
     this.setState({
       delayTimeDiv: parseInt(e.target.value)
-    })
-    console.log(this.state.delayTimeDiv)
-    const div = delayTimeDiv[this.state.delayTimeDiv]
-    const bpm = this.transport.bpm.value
-    // console.log(div+bpm)
-    const delayMS = (div / bpm) / 1000;
-    const delayTime = (delayMS < 1) ? delayMS : 1;
-    this.delay.delayTime.value = delayTime;
-  }
+    }, () => {      
+      const div = delayTimeDiv[this.state.delayTimeDiv]
+      const bpm = this.transport.bpm.value      
+      const delayMS = (div / bpm) / 1000;
+      const delayTime = (delayMS < 1) ? delayMS : 1;
+      this.delay.delayTime.value = delayTime;
+    });    
+  };
 
   handleMoodChange = (e) => {
     this.setState({
@@ -128,22 +114,16 @@ class Synth extends Component {
 
   handleBPMDelayChange = () => {
     const div = delayTimeDiv[this.state.delayTimeDiv]
-    const bpm = this.transport.bpm.value
-    console.log(div+bpm)
+    const bpm = this.transport.bpm.value    
     const delayMS = (div / bpm) / 1000;
     const delayTime = (delayMS < 1) ? delayMS : 1;
     this.delay.delayTime.value = delayTime;
-  }
+  };
 
 
   repeat = (time) => {
 
-    const mood = this.state.currentMood;
-
-    // console.log(this.state.synth1Pattern)    
-    // console.log(patternStep)    
-    // let stepCount = this.index % 7;    
-    // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
+    const mood = this.state.currentMood;    
 
     const Pattern1 = patterns[this.state.synth1Pattern]
     const patternCount1 = this.index % Pattern1.length
@@ -273,17 +253,7 @@ class Synth extends Component {
     releaseSlide2.addEventListener("input", function () {
       synth2.envelope.release = this.value / 4;
     });
-  }
-
-  // noteSliderListener = (e) => {
-  //   if (e.target.id === "noteSlider") {
-  //     if (e.target.value) {
-  //       let steps = this.state.steps;
-  //       steps[this.state.editStep].note = e.target.value
-  //       this.setState({ steps: steps })
-  //     };
-  //   };
-  // };
+  }  
 
   // globalClickListener = (e) => {
   //   console.log(e.target)
