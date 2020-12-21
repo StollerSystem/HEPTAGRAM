@@ -27,7 +27,7 @@ class Synth extends Component {
       s6: { active: false, note: 6 },
       s7: { active: false, note: 7 }
     },
-    stepEdit: null,
+    editStep: null,
     currentMood: 1,
     synth1Octave: 0,
     synth2Octave: -1,
@@ -158,10 +158,11 @@ class Synth extends Component {
     }
 
     const synth1Rel = this.synth1.envelope.release
-    const synth2Rel = this.synth2.envelope.release
+    const synth2Rel = this.synth2.envelope.release    
+    const editing = this.state.editStep
     this.draw.schedule(function () {
-      borderLight(patternStep1, active1, synth1Rel);
-      starLight(patternStep2, active2, synth2Rel);
+      borderLight(patternStep1, active1, synth1Rel, editing);
+      starLight(patternStep2, active2, synth2Rel, editing);
     }, time)
 
     this.index++
@@ -307,23 +308,23 @@ class Synth extends Component {
     return (
       <React.Fragment>
         <div className="grid-container">
-          <div className="item1">
+          <div className="item1 col">
             <Controls
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
               changeDelayTime={this.handleChangeDelayTime}
               changeMood={this.handleMoodChange}
             />
-            {editStep}
           </div>
-          <div className="item2">
+          <div className="item2 col">
             <Heptagram
               stepsActive={this.state.steps}
               stepEditing={this.state.editStep}
               editStep={this.handleEditStep}
-            />
+              />
           </div>
-          <div className="item3">
+          <div className="item3 col">
+              {editStep}
           </div>
         </div>
       </React.Fragment>

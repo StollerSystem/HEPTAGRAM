@@ -49,14 +49,14 @@ body {
   /* fill: #003c3e; */
   opacity: 1;
 }
-/* 
-.main {
-  margin: auto;
-  width: 50%;
+
+/* .main {
+  display: flex;
+  justify-content: center;
 } */
 
 .grid-container {
-  display: grid;
+  display: inline-grid;
   grid-column-gap: 50px;
   grid-template-columns: auto auto auto;
 }
@@ -81,3 +81,7 @@ body {
   border-width: 1px;
   margin: 5px
 }
+
+/* .col {
+  width:
+} */
