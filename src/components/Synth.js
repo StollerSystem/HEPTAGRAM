@@ -33,7 +33,7 @@ class Synth extends Component {
     },
     stepEdit: null,
     currentMood: 1,
-    synth1Octave: 3,
+    synth1Octave: 0,
     synth2Octave: 2,
     synth1Pattern: 1,
     synth2Pattern: 1,
@@ -141,9 +141,14 @@ class Synth extends Component {
     const patternStep1 = Pattern1[patternCount1]
     const active1 = this.state.steps[`b${patternStep1}`].active;
     if (active1) {
-      const octave = this.state.synth1Octave.toString();
+      // const octave = this.state.synth1Octave.toString();
       const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
-      const note = moods[mood][noteNum] + octave;
+      // const note = moods[mood][noteNum] + octave;
+      const octave = this.state.synth1Octave;
+      const split = moods[mood][noteNum].split('');
+      const note = split[0]+(parseInt(split[1])+octave).toString();
+      // console.log(note)
+
       this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 1: " + note)
     }
@@ -155,7 +160,7 @@ class Synth extends Component {
     if (active2) {
       const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
-      const note = moods[mood][noteNum] + octave;
+      const note = moods[2][noteNum] + octave;
       this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("SYNTH 2: " + note)
     }
@@ -232,7 +237,7 @@ class Synth extends Component {
     const octaveChange = this.handleOctaveChange
     var octaveSlide1 = document.getElementById('octave1');
     octaveSlide1.addEventListener("input", function () {
-      octaveChange("synth1Octave", this.value)
+      octaveChange("synth1Octave", this.value-3)
     })
 
     var octaveSlide2 = document.getElementById('octave2');

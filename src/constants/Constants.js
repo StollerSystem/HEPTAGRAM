@@ -7,7 +7,7 @@ export const patterns = {
 }
 
 export const moods = {
-  1: ["D", "E", "F", "G", "A", "B", "C"],
+  1: ["D3", "E3", "F3", "G3", "A3", "B3", "C4"],
   2: ["E", "F#", "G", "A", "B", "C#", "D"]
 }
 
