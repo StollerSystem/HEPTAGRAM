@@ -123,27 +123,31 @@ class Synth extends Component {
 
     // let stepCount = this.index % 7;    
     // this.synth.triggerAttackRelease(this.state.notes.mood1[stepCount], "32n", time)
-
-    if (this.state.steps[`b${patternStep1}`].active) {
+    const active1 = this.state.steps[`b${patternStep1}`].active;
+    if (active1) {
       const octave = this.state.synth1Octave.toString();
       const noteNum = this.state.steps[`b${patternStep1}`].note - 1;
       const note = moods[mood][noteNum] + octave;
       this.synth1.triggerAttackRelease(note, "64n", time)
-      console.log("SYNTH 1: "+note)
+      console.log("SYNTH 1: " + note)
     }
 
-    if (this.state.steps[`s${patternStep2}`].active) {
+    const active2 = this.state.steps[`s${patternStep2}`].active;
+    if (active2) {
       const octave = this.state.synth2Octave.toString();
       const noteNum = this.state.steps[`s${patternStep2}`].note - 1;
       const note = moods[mood][noteNum] + octave;
       this.synth2.triggerAttackRelease(note, "64n", time)
-      console.log("SYNTH 2: "+note)
+      console.log("SYNTH 2: " + note)
     }
 
     this.index++
+
+    let synth1Rel = this.synth1.envelope.release
+    let synth2Rel = this.synth2.envelope.release
     this.draw.schedule(function () {
-      borderLight(patternStep1);
-      starLight(patternStep2);
+      borderLight(patternStep1, active1, synth1Rel);
+      starLight(patternStep2, active2, synth2Rel);
     }, time)
   }
 
@@ -183,7 +187,7 @@ class Synth extends Component {
     var bpmSlide = document.getElementById('bpmCount');
     bpmSlide.addEventListener("input", function () {
       Tone.Transport.bpm.value = this.value;
-      let dottedEighth = (45000/this.value)/1000;
+      let dottedEighth = (45000 / this.value) / 1000;
       let delayTime = (dottedEighth < 1) ? dottedEighth : 1;
       delay.delayTime.value = delayTime;
       console.log(delay.delayTime.value);
@@ -206,7 +210,7 @@ class Synth extends Component {
     octaveSlide1.addEventListener("input", function () {
       octaveChange("synth1Octave", this.value)
     })
-    
+
     var octaveSlide2 = document.getElementById('octave2');
     octaveSlide2.addEventListener("input", function () {
       octaveChange("synth2Octave", this.value)
@@ -215,24 +219,24 @@ class Synth extends Component {
     const patternChange = this.handlePatternChange
     var patternSlide1 = document.getElementById('pattern1');
     patternSlide1.addEventListener("input", function () {
-      patternChange(1,this.value)
+      patternChange(1, this.value)
     })
-    
+
     var patternSlide2 = document.getElementById('pattern2');
     patternSlide2.addEventListener("input", function () {
-      patternChange(2,this.value)
+      patternChange(2, this.value)
     })
 
     const synth1 = this.synth1;
     var releaseSlide1 = document.getElementById('release1');
-    releaseSlide1.addEventListener("input", function() {     
-      synth1.envelope.release = this.value/2;     
+    releaseSlide1.addEventListener("input", function () {
+      synth1.envelope.release = this.value / 2;
     });
 
     const synth2 = this.synth2;
     var releaseSlide2 = document.getElementById('release2');
-    releaseSlide2.addEventListener("input", function() {     
-      synth2.envelope.release = this.value/2;     
+    releaseSlide2.addEventListener("input", function () {
+      synth2.envelope.release = this.value / 2;
     });
   }
 
@@ -251,19 +255,19 @@ class Synth extends Component {
   // }
 
   onKeyPress = (event) => {
-    console.log(event.key)
+    // console.log(event.key)
     if (this.state.editStep && event.key === " ") {
       this.handleToggleStep(this.state.editStep)
-    } else if (event.key=== " " && this.transport.state !== "started") {
-      this.handleSequenceStart();   
+    } else if (event.key === " " && this.transport.state !== "started") {
+      this.handleSequenceStart();
       console.log(this.transport.state)
-    } else if (event.key=== " ") {
+    } else if (event.key === " ") {
       this.handleSequenceStop();
       console.log(this.transport.state)
     } else if (this.state.editStep && event.key === "x") {
-      this.setState({editStep: null})
+      this.setState({ editStep: null })
     }
-  } 
+  }
 
 
   render() {

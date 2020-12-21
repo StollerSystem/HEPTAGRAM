@@ -1,18 +1,26 @@
 
-export function borderLight(id) {  
+export function borderLight(id,active,decay) {  
   const borderGlow = document.getElementById(`gb${id}`);
   const originalColor = borderGlow.getAttribute("fill");
-  borderGlow.setAttribute("fill", "white");
+  if (active) {
+    borderGlow.setAttribute("fill", "white");
+  } else {
+    borderGlow.setAttribute("fill", "#7e7e7e");
+  }  
   setTimeout(function() {    
     borderGlow.setAttribute("fill", originalColor)
-  }, 200);
+  }, decay*75);
 }
 
-export function starLight(id) {  
+export function starLight(id,active,decay) {  
   const starGlow = document.getElementById(`gs${id}`);  
   const originalColor = starGlow.getAttribute("fill");
-  starGlow.setAttribute("fill", "white");  
+  if (active) {
+    starGlow.setAttribute("fill", "white");
+  } else {
+    starGlow.setAttribute("fill", "#7e7e7e");
+  }
   setTimeout(function() {    
     starGlow.setAttribute("fill", originalColor)   
-  }, 200);
+  }, decay*75);
 }
