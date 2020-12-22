@@ -35,6 +35,7 @@ class Synth extends Component {
     synth1Pattern: 1,
     synth2Pattern: 1,
     delayTimeDiv: 3,
+    started: false
   };
 
 
@@ -80,10 +81,16 @@ class Synth extends Component {
   handleSequenceStart = () => {
     Tone.start();    
     this.transport.start();
+    this.setState(prevState => ({
+      started: !prevState.started,
+    }));    
   };
 
   handleSequenceStop = () => {
     this.transport.stop()
+    this.setState(prevState => ({
+      started: !prevState.started,
+    })); 
   };
 
   handleOctaveChange = (synth, value) => {
@@ -128,6 +135,7 @@ class Synth extends Component {
 
   repeat = (time) => {
 
+    // console.log(this.state.started)
     const mood = this.state.currentMood;    
 
     const Pattern1 = patterns[this.state.synth1Pattern]
@@ -315,6 +323,7 @@ class Synth extends Component {
               stop={this.handleSequenceStop}
               changeDelayTime={this.handleChangeDelayTime}
               changeMood={this.handleMoodChange}
+              started={this.state.started}
             />
             {editStep}
           </div>

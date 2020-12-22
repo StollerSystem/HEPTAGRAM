@@ -12,7 +12,7 @@ function EditStep(props) {
   return (
     <div className="editBox">
       <div  id="editControls">
-        <p>EDIT STEP: {id.toUpperCase()}</p>
+        <p>EDITING STEP: {id.toUpperCase()}</p>
         <p>NOTE<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
         onChange={props.changeNote}/></p>
         <button onClick={() => props.toggleStep(id)}>{buttonText}</button>

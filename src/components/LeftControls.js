@@ -1,14 +1,17 @@
 import React from 'react';
+// import { ReactComponent as PlayIcon } from '../icons/play.png'
+
 
 
 function LeftControls(props) {
+
+// const [started, setStarter] = useState(false):
 
   return (
 
     <div className="controlBox">
       <div className="synthControls">
-        <button onClick={props.start}>start</button>
-        <button onClick={props.stop}>stop</button>
+        {props.started ?  <button className="playButton" onClick={props.stop}><i class="fas fa-stop"></i></button> :<button className="playButton" onClick={props.start}><i class="fas fa-play"></i></button>}
         <p>BPM<input type="range" min="20" max="250" defaultValue="90" className="slider" id="bpmCount" /></p>
         <p>MOOD<input type="range" min="1" max="2" defaultValue="1" className="slider" id="moodSlider" onChange={props.changeMood} /></p>
       </div>
