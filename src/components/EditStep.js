@@ -6,7 +6,7 @@ function EditStep(props) {
 
   let buttonText = <i style={{color: "red"}} className="fas fa-toggle-off fa-2x"></i>
   if (props.currentStep.active) {
-    buttonText = <i style={{color: "green"}} className="fas fa-toggle-on fa-2x"></i>;
+    buttonText = <i style={{color: "#00d547"}} className="fas fa-toggle-on fa-2x"></i>;
   }
 
   return (

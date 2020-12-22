@@ -20,7 +20,7 @@ function LeftControls(props) {
         </button> :
         <button 
           className="playButton" 
-          style={{color: "green"}}
+          style={{color: "#00d547"}}
           onClick={props.start}>
             <i className="fas fa-play"></i>
         </button>}
