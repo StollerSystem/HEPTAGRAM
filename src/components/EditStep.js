@@ -11,7 +11,7 @@ function EditStep(props) {
 
   return (
     <div className="editBox">
-      <div className="synthControls">
+      <div  id="editControls">
         <p>EDIT STEP: {id.toUpperCase()}</p>
         <p>NOTE<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
         onChange={props.changeNote}/></p>

@@ -43,14 +43,17 @@ body {
 }
 
 .side {
-  opacity: 0.7;
-  transition: opacity .2s;
+  /* opacity: 0.7; */
+  /* transition: opacity .2s; */
+  transition:  all .5s ease;
+}
+
+#Heptagram {
+  fill: #181818;
 }
 
 .side:hover {
-  /* fill: #003c3e; */
-  opacity: 1;
-  /* filter: brightness(1.5);   */
+  fill: #3e3e3e;   
 }
 
 .main {
@@ -74,12 +77,6 @@ body {
   grid-auto-rows: minmax(100px, auto);
 }
 
-.editBox {
-  border: solid #7e7e7e;
-  border-width: 1px;
-  padding: 5px;
-  box-shadow: 0px 0px 9px 9px #009f94;
-}
 
 .controlBox {
   padding: 10px;
@@ -105,3 +102,19 @@ body {
   filter: brightness(1.5);  
 }
 
+.editBox {
+  border: solid #7e7e7e;
+  border-width: 1px;
+  padding: 5px;
+  box-shadow: 0px 0px 9px 9px #009f94;
+  
+}
+
+#editControls {
+  padding: 10px;
+  border: solid rgb(45, 45, 45);
+  border-width: 1px;
+  margin: 5px;
+  filter: brightness(1.5);  
+  transition:  all .5s ease;
+}

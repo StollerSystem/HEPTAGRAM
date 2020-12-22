@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Tone from 'tone';
-import Controls from './Controls';
+import LeftControls from './LeftControls';
 import RightControls from './RightControls';
 import Heptagram from './Heptagram';
 import EditStep from './EditStep'
@@ -310,7 +310,7 @@ class Synth extends Component {
       <React.Fragment>
         <div className="grid-container">
           <div className="item1 col">
-            <Controls
+            <LeftControls
               start={this.handleSequenceStart}
               stop={this.handleSequenceStop}
               changeDelayTime={this.handleChangeDelayTime}

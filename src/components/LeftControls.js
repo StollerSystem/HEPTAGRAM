@@ -1,14 +1,14 @@
 import React from 'react';
 
 
-function Controls(props) {
+function LeftControls(props) {
 
   return (
 
     <div className="controlBox">
-      <button onClick={props.start}>start</button>
-      <button onClick={props.stop}>stop</button>
       <div className="synthControls">
+        <button onClick={props.start}>start</button>
+        <button onClick={props.stop}>stop</button>
         <p>BPM<input type="range" min="20" max="250" defaultValue="90" className="slider" id="bpmCount" /></p>
         <p>MOOD<input type="range" min="1" max="2" defaultValue="1" className="slider" id="moodSlider" onChange={props.changeMood} /></p>
       </div>
@@ -40,4 +40,4 @@ function Controls(props) {
   )
 }
 
-export default Controls;
+export default LeftControls;

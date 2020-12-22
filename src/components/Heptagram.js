@@ -28,11 +28,11 @@ function Heptagram(props) {
     <React.Fragment>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill="#1f1f1f"
+        // fill="#1f1f1f"
         width="250mm"
         height="250mm"
         viewBox="4 2 400 400"
-        id="svg2386">
+        id="Heptagram">
         {/* <filter
           id="filter3606"
           x="-0.056229551"
