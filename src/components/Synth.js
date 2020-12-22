@@ -13,20 +13,20 @@ class Synth extends Component {
   state = {    
     steps: {
       b1: { active: false, note: 1 },
-      b2: { active: false, note: 2 },
-      b3: { active: false, note: 3 },
-      b4: { active: false, note: 4 },
-      b5: { active: false, note: 5 },
-      b6: { active: false, note: 6 },
+      b2: { active: false, note: 3 },
+      b3: { active: false, note: 4 },
+      b4: { active: false, note: 2 },
+      b5: { active: false, note: 6 }, 
+      b6: { active: false, note: 5 },
       b7: { active: false, note: 7 },
 
       s1: { active: false, note: 1 },
-      s2: { active: false, note: 2 },
-      s3: { active: false, note: 3 },
-      s4: { active: false, note: 4 },
-      s5: { active: false, note: 5 },
-      s6: { active: false, note: 6 },
-      s7: { active: false, note: 7 }
+      s2: { active: false, note: 1 },
+      s3: { active: false, note: 5 },
+      s4: { active: false, note: 5 },
+      s5: { active: false, note: 1 },
+      s6: { active: false, note: 1 },
+      s7: { active: false, note: 1 }
     },
     editStep: null,
     currentMood: 1,

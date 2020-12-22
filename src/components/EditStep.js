@@ -12,11 +12,11 @@ function EditStep(props) {
   return (
     <div className="editBox">
       <div  id="editControls">
-        <button className="editClose" onClick={() => props.editStep(id)}><i class="far fa-window-close fa-2x"></i></button>
-        <p><strong>EDITING STEP: {id.toUpperCase()}</strong></p>
-        <p>NOTE<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
+        <button className="editClose" onClick={() => props.editStep(id)}><i className="far fa-window-close fa-2x"></i></button>
+        <p><u><strong>EDITING STEP: {id.toUpperCase()}</strong></u></p>
+        <p>PITCH<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
         onChange={props.changeNote}/></p>
-        <p>TURN STEP ON/OFF (spacebar)</p>    
+        <p>TURN STEP ON/OFF</p>    
         <button className="stepButton" onClick={() => props.toggleStep(id)}>{buttonText}</button>
         {/* <div onKeyPress={() => props.toggleStep(id)}></div> */}
       </div>
