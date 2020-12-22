@@ -103,6 +103,7 @@ body {
 }
 
 .editBox {
+  margin-top: 20px;
   border: solid #7e7e7e;
   border-width: 1px;
   padding: 5px;
@@ -121,9 +122,41 @@ body {
 
 .playButton {
   background-color: black;
-  color:white;
-  border: solid white;  
+  /* color:white; */
+  border: solid #7e7e7e;  
   border-width: 1px;
-  width: 15%;
-  height: 15%;
+  width: 60px;
+  height: 30px;
+  transition:  all .25s ease;
+}
+
+.playButton:hover {
+  filter: brightness(2); 
+  box-shadow: 0px 0px 8px 8px #00d547;
+}
+
+.stepButton:hover {
+  filter: brightness(2); 
+  box-shadow: 0px 0px 8px 8px #00d547;
+}
+
+.stepButton {
+  background-color: black;
+  /* color:white; */
+  border: solid #7e7e7e;  
+  border-width: 1px;
+  width: 60px;
+  height: 30px;
+  transition:  all .25s ease;
+}
+
+.editClose {
+  background-color: black;
+  color: #565656;
+  border: none; 
+  /* border-width: 1px; */
+  width: 60px;
+  height: 30px;
+  transition:  all .25s ease;
+  float: right;
 }
