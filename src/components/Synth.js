@@ -6,7 +6,7 @@ import Heptagram from './Heptagram';
 import EditStep from './EditStep'
 import { borderLight, starLight } from './Visuals';
 import { patterns, moods, delayTimeDiv } from '../constants/Constants'
-// import { Transition } from 'react-transition-group';
+
 
 class Synth extends Component {
 
@@ -42,11 +42,8 @@ class Synth extends Component {
   transport = Tone.Transport;
   index = 0;
   draw = Tone.Draw
-  delay = new Tone.FeedbackDelay(.5, .5);
-  // chorus = new Tone.Chorus(5, 2.5, 1);
-  // reverb = new Tone.JCReverb(0.4)
+  delay = new Tone.FeedbackDelay(.5, .5);  
   reverb = new Tone.Freeverb(.9, 3000)
-
 
   volume1 = new Tone.Volume(-17);
   filter1 = new Tone.Filter(5000, 'lowpass', -24);
@@ -73,8 +70,7 @@ class Synth extends Component {
 
   handleChangeNote = (e) => {
     let steps = this.state.steps;
-    steps[this.state.editStep].note = e.target.value
-    // console.log(e.target.value)
+    steps[this.state.editStep].note = e.target.value;    
     this.setState({ steps: steps });
   };
 
@@ -102,8 +98,7 @@ class Synth extends Component {
   handlePatternChange = (synth, value) => {
     this.setState({
       [`synth${synth}Pattern`]: value
-    })
-    // console.log(this.state.synth1Pattern)
+    });    
   };
 
   handleChangeDelayTime = (e) => {    
@@ -134,8 +129,7 @@ class Synth extends Component {
 
 
   repeat = (time) => {
-
-    // console.log(this.state.started)
+    
     const mood = this.state.currentMood;    
 
     const Pattern1 = patterns[this.state.synth1Pattern]
@@ -150,7 +144,7 @@ class Synth extends Component {
       const note = split.join('')      
       this.synth1.triggerAttackRelease(note, "64n", time)
       console.log("Border Synth: " + note)
-    }
+    };
 
     const Pattern2 = patterns[this.state.synth2Pattern]
     const patternCount2 = this.index % Pattern2.length
@@ -164,7 +158,7 @@ class Synth extends Component {
       const note = split.join('')
       this.synth2.triggerAttackRelease(note, "64n", time)
       console.log("Star Synth: " + note)
-    }
+    };
 
     const synth1Rel = this.synth1.envelope.release
     const synth2Rel = this.synth2.envelope.release    
@@ -172,9 +166,9 @@ class Synth extends Component {
     this.draw.schedule(function () {
       borderLight(patternStep1, active1, synth1Rel, editing);
       starLight(patternStep2, active2, synth2Rel, editing);
-    }, time)
+    }, time);
 
-    this.index++
+    this.index++;
   }
 
 
@@ -182,10 +176,9 @@ class Synth extends Component {
 
     this.synth1.oscillator.type = "square";
     this.synth2.oscillator.type = "sawtooth";
-    this.transport.bpm.value = 90
+    this.transport.bpm.value = 90;
     this.transport.scheduleRepeat(this.repeat, '8n');
-    this.draw.anticipation = 1;
-    // this.chorus.wet.value = 0;
+    this.draw.anticipation = 1;    
 
     const reverb = this.reverb;
     reverb.wet.value = 0;
@@ -193,10 +186,8 @@ class Synth extends Component {
     const delay = this.delay;
     delay.wet.value = .1;
     delay.maxDelay = 3;
-
-    // document.addEventListener("input", this.noteSliderListener);
-    // document.addEventListener("click", this.globalClickListener)
-    window.addEventListener('keypress', this.onKeyPress)
+    
+    window.addEventListener('keypress', this.onKeyPress);
 
     var reverbSlide = document.getElementById('reverbLevel');
     reverbSlide.addEventListener("input", function () {
@@ -248,23 +239,23 @@ class Synth extends Component {
     var octaveSlide1 = document.getElementById('octave1');
     octaveSlide1.addEventListener("input", function () {
       octaveChange("synth1Octave", this.value-3)
-    })
+    });
 
     var octaveSlide2 = document.getElementById('octave2');
     octaveSlide2.addEventListener("input", function () {
       octaveChange("synth2Octave", this.value-3)
-    })
+    });
 
     const patternChange = this.handlePatternChange
     var patternSlide1 = document.getElementById('pattern1');
     patternSlide1.addEventListener("input", function () {
       patternChange(1, this.value)
-    })
+    });
 
     var patternSlide2 = document.getElementById('pattern2');
     patternSlide2.addEventListener("input", function () {
       patternChange(2, this.value)
-    })
+    });
 
     const synth1 = this.synth1;
     var releaseSlide1 = document.getElementById('release1');
@@ -278,25 +269,21 @@ class Synth extends Component {
       synth2.envelope.release = this.value / 4;
     });
   }  
+  
 
-  // globalClickListener = (e) => {
-  //   console.log(e.target)
-  // }
-
-  onKeyPress = (event) => {
-    // console.log(event.key)
+  onKeyPress = (event) => {    
     if (this.state.editStep && event.key === " ") {
       this.handleToggleStep(this.state.editStep)
     } else if (event.key === " " && this.transport.state !== "started") {
       this.handleSequenceStart();
-      console.log(this.transport.state)
+      console.log(this.transport.state);
     } else if (event.key === " ") {
       this.handleSequenceStop();
-      console.log(this.transport.state)
+      console.log(this.transport.state);
     } else if (this.state.editStep && event.key === "x") {
       this.setState({ editStep: null })
-    }
-  }
+    };
+  };
 
 
   render() {
@@ -312,7 +299,7 @@ class Synth extends Component {
         currentStep={this.state.steps[this.state.editStep]}
         key={1}
       />
-    }
+    };
 
     return (
       <React.Fragment>

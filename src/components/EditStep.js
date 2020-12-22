@@ -17,8 +17,7 @@ function EditStep(props) {
         <p>PITCH<input type="range" min="1" max="7" value={props.currentStep.note} className="slider" id="noteSlider" 
         onChange={props.changeNote}/></p>
         <p>TURN STEP ON/OFF</p>    
-        <button className="stepButton" onClick={() => props.toggleStep(id)}>{buttonText}</button>
-        {/* <div onKeyPress={() => props.toggleStep(id)}></div> */}
+        <button className="stepButton" onClick={() => props.toggleStep(id)}>{buttonText}</button>        
       </div>
     </div>      
   )  

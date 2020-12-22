@@ -17,8 +17,7 @@ class App extends Component {
   hide() {
     console.log("hide")
     this.setState({ visible: false });
-  }
-  
+  }  
 
   customStyles = {
     backgroundColor: "black",

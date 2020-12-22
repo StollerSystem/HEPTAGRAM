@@ -1,6 +1,5 @@
 
-export function borderLight(id,active,decay,editing) {  
-  // console.log(editing)
+export function borderLight(id,active,decay,editing) {    
   const borderGlow = document.getElementById(`gb${id}`);  
   const border = document.getElementById(`b${id}`); 
   if (active) {
