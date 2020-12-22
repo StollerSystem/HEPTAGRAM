@@ -34,16 +34,18 @@ class App extends Component {
         className="rodalSplash" 
         visible={this.state.visible} 
         onClose={this.hide.bind(this)}
-        width={1200}
-        // measure={"percent"}
+        width={75}
+        height={35}
+        measure={"%"}
         showCloseButton={true}
         animation={"fade"}
         duration={2000}
         showMask={false}
         customStyles={this.customStyles}>
           <div className="splashModal">
-            <h1>//HETP/\GRAM\\</h1>  
-            <p>DUAL VOICE GEOMETRIC STEP SEQUENCER</p>         
+            <h1>HEPTAGRAM</h1>  
+            <h2>DUAL VOICE GEOMETRIC STEP SEQUENCER</h2> 
+            <p>BUILT BY: <a href="https://github.com/StollerSystem"><span>STOLLERSYSTEM</span></a></p>        
           </div>
         </Rodal>
         <div className="main">

@@ -161,20 +161,34 @@ body {
   float: right;
 }
 
+.splashModal h2 {
+  font-size: larger;
+  /* color:  rgb(147, 147, 147); */
+  -webkit-transform:scale(2,1);
+  transform:scale(2,1);
+}
+
 .splashModal {
-  color: #00d547;
-  font-size: xx-large;
+  /* padding: 0px; */
+  
+  /* font-size: 4vw; */
   text-align: center;
-  background-color: black;
+  /* background-color: black; */
   /* border: solid #7e7e7e;
   border-width: 1px; */
 }
 
-/* .rodalSplash {
-  background-color: black;
-} */
+.splashModal h1 {
+  background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,0) 39%, rgba(0,244,82,1) 51%, rgba(0,0,0,0) 63%);
 
-/* .rodal-dialog {
-  background-color: black;
-} */
+  color: #00ab39;
+  font-size: 5vw;
+  text-shadow: 0px 0px 5px  #00f452;
+  
+  -webkit-transform:scale(3,1);
+  transform:scale(3,1);
+  /* font-stretch: expanded; */
+}
+
 
