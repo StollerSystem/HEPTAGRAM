@@ -179,16 +179,18 @@ body {
 }
 
 .splashModal h1 {
+  -webkit-text-stroke: 1px #7e7e7e;
   background: rgb(0,0,0);
-background: linear-gradient(0deg, rgba(0,0,0,0) 39%, rgba(0,244,82,1) 51%, rgba(0,0,0,0) 63%);
-
+  background: linear-gradient(0deg, rgba(0,0,0,0) 39%, rgba(0,244,82,1) 51%, rgba(0,0,0,0) 63%);
   color: #00ab39;
   font-size: 5vw;
-  text-shadow: 0px 0px 5px  #00f452;
-  
+  text-shadow: 0px 0px 5px  #00f452;  
   -webkit-transform:scale(3,1);
-  transform:scale(3,1);
-  /* font-stretch: expanded; */
+  transform:scale(3,1);  
+}
+
+a {
+  color: #00ab39;
 }
 
 

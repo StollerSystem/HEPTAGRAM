@@ -39,7 +39,7 @@ class App extends Component {
         measure={"%"}
         showCloseButton={true}
         animation={"fade"}
-        duration={2000}
+        duration={2500}
         showMask={false}
         customStyles={this.customStyles}>
           <div className="splashModal">
