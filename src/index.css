@@ -160,3 +160,21 @@ body {
   transition:  all .25s ease;
   float: right;
 }
+
+.splashModal {
+  color: #00d547;
+  font-size: xx-large;
+  text-align: center;
+  background-color: black;
+  /* border: solid #7e7e7e;
+  border-width: 1px; */
+}
+
+/* .rodalSplash {
+  background-color: black;
+} */
+
+/* .rodal-dialog {
+  background-color: black;
+} */
+

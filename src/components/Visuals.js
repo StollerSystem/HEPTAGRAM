@@ -1,6 +1,6 @@
 
 export function borderLight(id,active,decay,editing) {  
-  console.log(editing)
+  // console.log(editing)
   const borderGlow = document.getElementById(`gb${id}`);  
   if (active) {
     borderGlow.setAttribute("fill", "white");

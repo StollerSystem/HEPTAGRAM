@@ -103,7 +103,7 @@ class Synth extends Component {
     this.setState({
       [`synth${synth}Pattern`]: value
     })
-    console.log(this.state.synth1Pattern)
+    // console.log(this.state.synth1Pattern)
   };
 
   handleChangeDelayTime = (e) => {    
@@ -149,7 +149,7 @@ class Synth extends Component {
       split[split.length-1] = (parseInt(split[split.length-1])+octave).toString();
       const note = split.join('')      
       this.synth1.triggerAttackRelease(note, "64n", time)
-      console.log("SYNTH 1: " + note)
+      console.log("Border Synth: " + note)
     }
 
     const Pattern2 = patterns[this.state.synth2Pattern]
@@ -163,7 +163,7 @@ class Synth extends Component {
       split[split.length-1] = (parseInt(split[split.length-1])+octave).toString();
       const note = split.join('')
       this.synth2.triggerAttackRelease(note, "64n", time)
-      console.log("SYNTH 2: " + note)
+      console.log("Star Synth: " + note)
     }
 
     const synth1Rel = this.synth1.envelope.release
