@@ -4,7 +4,6 @@ body {
   font-family: 'Saira Extra Condensed', sans-serif;
 }
 
-
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -42,9 +41,7 @@ body {
   cursor: pointer;
 }
 
-.side {
-  /* opacity: 0.7; */
-  /* transition: opacity .2s; */
+.side {  
   transition:  all .5s ease;
 }
 
@@ -56,9 +53,7 @@ body {
   fill: #3e3e3e;   
 }
 
-.main {
-  /* display: flex;
-  justify-content: center; */
+.main {  
   padding:5px
 }
 
@@ -69,10 +64,7 @@ body {
 }
 
 .grid-container {
-  display: inline-grid;
-  /* grid-column-gap: 50px; */
-  /* grid-template-columns: repeat(auto-fit, 1fr); */
-  /* grid-template-columns: repeat(3, minmax(240px, 1fr)); */
+  display: inline-grid;  
   grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: minmax(100px, auto);
 }
@@ -93,10 +85,6 @@ body {
   filter: brightness(.25);  
   transition:  all .5s ease;
 }
-
-/* .col {
-  width:
-} */
 
 .synthControls:hover {
   filter: brightness(1.5);  
@@ -121,8 +109,7 @@ body {
 }
 
 .playButton {
-  background-color: black;
-  /* color:white; */
+  background-color: black;  
   border: solid #7e7e7e;  
   border-width: 1px;
   width: 60px;
@@ -141,8 +128,7 @@ body {
 }
 
 .stepButton {
-  background-color: black;
-  /* color:white; */
+  background-color: black;  
   border: solid #7e7e7e;  
   border-width: 1px;
   width: 60px;
@@ -153,8 +139,7 @@ body {
 .editClose {
   background-color: black;
   color: #565656;
-  border: none; 
-  /* border-width: 1px; */
+  border: none;   
   width: 60px;
   height: 30px;
   transition:  all .25s ease;
@@ -162,20 +147,13 @@ body {
 }
 
 .splashModal h2 {
-  font-size: larger;
-  /* color:  rgb(147, 147, 147); */
+  font-size: larger;  
   -webkit-transform:scale(2,1);
   transform:scale(2,1);
 }
 
-.splashModal {
-  /* padding: 0px; */
-  
-  /* font-size: 4vw; */
-  text-align: center;
-  /* background-color: black; */
-  /* border: solid #7e7e7e;
-  border-width: 1px; */
+.splashModal {  
+  text-align: center;  
 }
 
 .splashModal h1 {
