@@ -22,7 +22,8 @@ class App extends Component {
   customStyles = {
     backgroundColor: "black",
     border: "solid #7e7e7e",
-    borderWidth: "1px"
+    borderWidth: "1px",
+    boxShadow: "0px 0px 4px 4px #7e7e7e"   
   }
 
   render() {
@@ -37,7 +38,7 @@ class App extends Component {
         height={35}
         measure={"%"}
         showCloseButton={true}
-        animation={"fade"}
+        animation={"door"}
         duration={2500}
         showMask={false}
         customStyles={this.customStyles}>
