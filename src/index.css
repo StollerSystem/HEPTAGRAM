@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'digital7';
+  src: local('digital7'), url(./fonts/digital-7.ttf) format('truetype');
+}
+
+
 body {
   background-color: black;
   color: rgb(147, 147, 147);
@@ -157,18 +163,22 @@ body {
 }
 
 .splashModal h1 {
-  -webkit-text-stroke: 1px #7e7e7e;
+  /* font-family: 'Quantico', sans-serif; */
+  /* font-family: 'Aldrich', sans-serif; */
+  /* font-family: 'Geo', sans-serif; */
+  font-family: 'digital7';
+  /* -webkit-text-stroke: 1px #7e7e7e; */
   background: rgb(0,0,0);
-  background: linear-gradient(0deg, rgba(0,0,0,0) 39%, rgba(0,244,82,1) 51%, rgba(0,0,0,0) 63%);
-  color: #00ab39;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 39%, rgb(23, 174, 73) 51%, rgba(0,0,0,0) 63%);
+  color: #000000;
   font-size: 5vw;
   text-shadow: 0px 0px 5px  #00f452;  
-  -webkit-transform:scale(3,1);
-  transform:scale(3,1);  
+  -webkit-transform:scale(2,1);
+  transform:scale(2,1);  
 }
 
 a {
-  color: #00ab39;
+  color: #049133;
 }
 
 
