@@ -11,6 +11,7 @@ import { patterns, moods, delayTimeDiv } from '../constants/Constants'
 class Synth extends Component {
 
   state = {    
+
     steps: {
       b1: { active: false, note: 1 },
       b2: { active: false, note: 3 },
@@ -28,6 +29,7 @@ class Synth extends Component {
       s6: { active: false, note: 1 },
       s7: { active: false, note: 1 }
     },
+    
     editStep: null,
     currentMood: 1,
     synth1Octave: 0,

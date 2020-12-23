@@ -20,7 +20,7 @@ function LeftControls(props) {
             <i className="fas fa-play"></i>
         </button>}
         <p>SPEED<input type="range" min="20" max="250" defaultValue="90" className="slider" id="bpmCount" /></p>
-        <p>MOOD<input type="range" min="1" max="5" defaultValue="1" className="slider" id="moodSlider" onChange={props.changeMood} /></p>
+        <p>MOOD<input type="range" min="1" max="7" defaultValue="1" className="slider" id="moodSlider" onChange={props.changeMood} /></p>
       </div>
       <div className="synthControls">
         <p>FX</p>
